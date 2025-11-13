@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario FTTH</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>📡 Reclamo FTTH</h1>
+    <p>Completá los datos solicitados y generá el texto para ingresar en el sistema.</p>
+
+    <form id="ftthForm">
+      <label>
+        <input type="checkbox" id="direccionCheck">
+        Dirección verificada ✅
+      </label>
+      <p class="hint">Debe corroborarse la dirección en el sistema. Si está mal, corregirla.  
+      Si este campo no está tildado, no se puede generar el texto.</p>
+
+      <label for="ubicacion">Ubicación / Coordenadas:</label>
+      <input type="text" id="ubicacion" placeholder="Pegar ubicación de Google (solo si aplica)">
+      <p class="hint">Usar solo si el cliente no tiene una dirección clara (zonas rurales o remotas).</p>
+
+      <label for="contacto">Contacto (nombre y número):</label>
+      <input type="text" id="contacto" placeholder="Ej: Juan Pérez - 2944 123456">
+
+      <label for="comentario">Comentario:</label>
+      <textarea id="comentario" placeholder="Motivo de llamado / detalle de tareas realizadas / solución"></textarea>
+
+      <label for="potencia">Potencia ONT:</label>
+      <input type="text" id="potencia" placeholder="Ej: -22 dBm">
+
+      <label for="desconexiones">Desconexiones (últimos 7 días):</label>
+      <input type="text" id="desconexiones" placeholder="Ej: 3">
+
+      <div class="buttons">
+        <button type="button" id="generarBtn">Generar texto</button>
+        <button type="button" id="copiarBtn" disabled>Copiar texto</button>
+        <a href="index.html" class="volver">← Volver al Hub</a>
+      </div>
+    </form>
+
+    <div id="resultadoContainer" style="display:none;">
+      <h2>Texto generado:</h2>
+      <pre id="resultado"></pre>
+    </div>
+  </div>
+</body>
+</html>
