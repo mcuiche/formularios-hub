@@ -12,14 +12,18 @@
     <h1>📡 Reclamo FTTH</h1>
     <p>Completá los datos solicitados y generá el texto para ingresar en el sistema.</p>
 
-    <form id="ftthForm">
-      <label>
-        <input type="checkbox" id="direccionCheck">
-        Dirección verificada ✅
-      </label>
-      <p class="hint">Debe corroborarse la dirección en el sistema. Si está mal, corregirla.  
-      Si este campo no está tildado, no se puede generar el texto.</p>
+    <!-- 🔽 Checkbox movido aquí debajo del título -->
+    <div class="direccion-check">
+      <p><strong>Dirección:</strong> Deben corroborar la dirección en el sistema.  
+      En caso de estar mal, corregirla antes de continuar.</p>
 
+      <label class="check-label">
+        <input type="checkbox" id="direccionCheck">
+        Confirmo que la dirección fue verificada ✅
+      </label>
+    </div>
+
+    <form id="ftthForm">
       <label for="ubicacion">Ubicación / Coordenadas:</label>
       <input type="text" id="ubicacion" placeholder="Pegar ubicación de Google (solo si aplica)">
       <p class="hint">Usar solo si el cliente no tiene una dirección clara (zonas rurales o remotas).</p>
@@ -50,3 +54,4 @@
   </div>
 </body>
 </html>
+
