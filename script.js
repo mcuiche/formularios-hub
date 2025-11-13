@@ -19,12 +19,12 @@ document.addEventListener("DOMContentLoaded", () => {
       const desconexiones = document.getElementById("desconexiones").value.trim();
 
       let texto = `📡 RECLAMO FTTH\n`;
-      texto += `📍 Dirección: Verificada ✅\n`;
-      if (ubicacion) texto += `📌 Ubicación: ${ubicacion}\n`;
-      texto += `👤 Contacto: ${contacto}\n`;
-      texto += `📝 Comentario: ${comentario}\n`;
-      texto += `💡 Potencia ONT: ${potencia}\n`;
-      texto += `🔄 Desconexiones (7 días): ${desconexiones}`;
+      texto += ` Dirección: Verificada \n`;
+      if (ubicacion) texto += ` Ubicación: ${ubicacion}\n`;
+      texto += `Contacto: ${contacto}\n`;
+      texto += `Comentario: ${comentario}\n`;
+      texto += `Potencia ONT: ${potencia}\n`;
+      texto += `Desconexiones (7 días): ${desconexiones}`;
 
       resultado.textContent = texto;
       resultadoContainer.style.display = "block";
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (copiarBtn) {
     copiarBtn.addEventListener("click", () => {
       navigator.clipboard.writeText(resultado.textContent);
-      copiarBtn.textContent = "✅ Copiado";
+      copiarBtn.textContent = "Copiado";
       setTimeout(() => copiarBtn.textContent = "Copiar texto", 1500);
     });
   }
