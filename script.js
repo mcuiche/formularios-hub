@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const potencia = document.getElementById("potencia").value.trim();
       const desconexiones = document.getElementById("desconexiones").value.trim();
 
-      let texto = `📡 RECLAMO FTTH\n`;
+      let texto = `RECLAMO FTTH\n`;
       texto += ` Dirección: Verificada \n`;
       if (ubicacion) texto += ` Ubicación: ${ubicacion}\n`;
       texto += `Contacto: ${contacto}\n`;
