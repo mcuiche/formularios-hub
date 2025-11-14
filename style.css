@@ -33,6 +33,15 @@ a {
   text-decoration: none;
   color: #0077cc;
 }
+.dualcampo {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.dualcampo input {
+    width: 80px;
+}
 
 a:hover {
   text-decoration: underline;
