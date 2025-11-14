@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario ADSL</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>📞 Reclamo ADSL</h1>
+    <p>Completá los datos solicitados y generá el texto para ingresar en el sistema.</p>
+
+    <!-- 🔽 Bloque de dirección -->
+    <div class="direccion-check">
+      <h3>Dirección verificada ✅</h3>
+      <p>Debe corroborarse la dirección en el sistema. Si está mal, corregirla.<br>
+      Si este campo no está tildado, no se puede generar el texto.</p>
+
+      <label class="check-label">
+        <input type="checkbox" id="direccionCheck_adsl">
+        Confirmo que la dirección fue verificada
+      </label>
+    </div>
+
+    <form id="adslForm">
+      
+      <!-- Ubicación -->
+      <label for="ubicacion_adsl">Ubicación / Coordenadas:</label>
+      <input type="text" id="ubicacion_adsl" placeholder="Pegar ubicación de Google (solo si aplica)">
+      <p class="hint">Usar solo si el cliente no tiene una dirección clara (zonas rurales o remotas).</p>
+
+      <!-- Contacto -->
+      <label for="contacto_adsl">Contacto (nombre y número):</label>
+      <input type="text" id="contacto_adsl" placeholder="Ej: Juan Pérez - 2944 123456">
+
+      <!-- Comentario -->
+      <label for="comentario_adsl">Comentario:</label>
+      <textarea id="comentario_adsl" placeholder="Motivo de llamado / detalle de tareas realizadas / solución"></textarea>
+
+      <!-- Módem -->
+      <label for="modem">Modelo de módem:</label>
+      <select id="modem">
+        <option value="">Seleccionar...</option>
+        <option>Zyxel AMG1302-T10C</option>
+        <option>Zyxel AMG1302-T10B</option>
+        <option>TP-LINK W8951ND</option>
+        <option>TP-LINK W8901N</option>
+        <option>TP-LINK W8961N</option>
+        <option>TP-LINK W9970</option>
+        <option>Zyxel VMG1312-T20B</option>
+        <option value="otro">Otro (especificar)</option>
+      </select>
+
+      <div id="otroModemContainer" style="display:none; margin-top:8px;">
+        <input type="text" id="otroModem" placeholder="Ingrese modelo">
+      </div>
+
+      <!-- Rate -->
+      <label>Rate:</label>
+      <div class="dualcampo">
+        <input type="text" id="rate_up" placeholder="Up">
+        <span>/</span>
+        <input type="text" id="rate_down" placeholder="Down">
+        <span>Kbps</span>
+      </div>
+
+      <!-- SNR -->
+      <label>SNR:</label>
+      <div class="dualcampo">
+        <input type="text" id="snr_up" placeholder="Up">
+        <span>/</span>
+        <input type="text" id="snr_down" placeholder="Down">
+        <span>dBm</span>
+      </div>
+
+      <!-- Atenuación -->
+      <label>Atenuación:</label>
+      <div class="dualcampo">
+        <input type="text" id="att_up" placeholder="Up">
+        <span>/</span>
+        <input type="text" id="att_down" placeholder="Down">
+        <span>dBm</span>
+      </div>
+
+      <!-- Desconexiones -->
+      <label for="desconexiones_adsl">Desconexiones (últimos 7 días):</label>
+      <input type="text" id="desconexiones_adsl" placeholder="Ej: 2">
+
+      <!-- Botones -->
+      <div class="buttons">
+        <button type="button" id="generarBtn_adsl">Generar texto</button>
+        <button type="button" id="copiarBtn_adsl" disabled>Copiar texto</button>
+        <a href="index.html" class="volver">← Volver al Hub</a>
+      </div>
+    </form>
+
+    <div id="resultadoContainer_adsl" style="display:none;">
+      <h2>Texto generado:</h2>
+      <pre id="resultado_adsl"></pre>
+    </div>
+
+  </div>
+</body>
+</html>
