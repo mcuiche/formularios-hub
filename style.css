@@ -96,3 +96,19 @@ button:disabled {
   text-decoration: none;
   text-align: center;
 }
+.radio-group {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+#senalCadenas input {
+  width: 80px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+#senalCCQ input {
+  width: 120px;
+  margin-bottom: 5px;
+}
