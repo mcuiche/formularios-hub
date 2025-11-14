@@ -1,3 +1,6 @@
+// ------------------------------
+//   FORMULARIO FTTH
+// ------------------------------
 document.addEventListener("DOMContentLoaded", () => {
   const generarBtn = document.getElementById("generarBtn");
   const copiarBtn = document.getElementById("copiarBtn");
@@ -40,65 +43,78 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+// ------------------------------
+//   FORMULARIO ADSL
+// ------------------------------
 document.addEventListener("DOMContentLoaded", () => {
-  const generarADSLBtn = document.getElementById("generarADSLBtn");
-  const copiarADSLBtn = document.getElementById("copiarADSLBtn");
-  const resultadoADSL = document.getElementById("resultadoADSL");
-  const resultadoADSLContainer = document.getElementById("resultadoADSLContainer");
-  const direccionADSLCheck = document.getElementById("direccionADSLCheck");
+    const generarBtn = document.getElementById("generarBtn_adsl");
+    const copiarBtn = document.getElementById("copiarBtn_adsl");
+    const resultado = document.getElementById("resultado_adsl");
+    const resultadoContainer = document.getElementById("resultadoContainer_adsl");
+    const direccionCheck = document.getElementById("direccionCheck_adsl");
 
-  if (generarADSLBtn) {
-    generarADSLBtn.addEventListener("click", () => {
-      if (!direccionADSLCheck.checked) {
-        alert("Debes confirmar la dirección antes de generar el texto.");
-        return;
-      }
+    const modemSelect = document.getElementById("modem");
+    const otroModemContainer = document.getElementById("otroModemContainer");
+    const otroModemInput = document.getElementById("otroModem");
 
-      const ubicacion = document.getElementById("ubicacionADSL").value.trim();
-      const contacto = document.getElementById("contactoADSL").value.trim();
-      const comentario = document.getElementById("comentarioADSL").value.trim();
+    // Mostrar campo "otro" si corresponde
+    if (modemSelect) {
+        modemSelect.addEventListener("change", () => {
+            if (modemSelect.value === "otro") {
+                otroModemContainer.style.display = "block";
+            } else {
+                otroModemContainer.style.display = "none";
+                otroModemInput.value = "";
+            }
+        });
+    }
 
-      const modemSelect = document.getElementById("modemSelect");
-      let modem = modemSelect.value;
+    if (generarBtn) {
+        generarBtn.addEventListener("click", () => {
+            if (!direccionCheck.checked) {
+                alert("Debes confirmar la dirección antes de generar el texto.");
+                return;
+            }
 
-      // Si elige "Otro", toma el texto escrito
-      if (modem === "otro") {
-        modem = document.getElementById("modemOtro").value.trim() || "No especificado";
-      }
+            const ubicacion = document.getElementById("ubicacion_adsl").value.trim();
+            const contacto = document.getElementById("contacto_adsl").value.trim();
+            const comentario = document.getElementById("comentario_adsl").value.trim();
+            const desconexiones = document.getElementById("desconexiones_adsl").value.trim();
 
-      const rateUp = document.getElementById("rateUp").value.trim();
-      const rateDown = document.getElementById("rateDown").value.trim();
+            const rateUp = document.getElementById("rate_up").value.trim();
+            const rateDown = document.getElementById("rate_down").value.trim();
 
-      const snrUp = document.getElementById("snrUp").value.trim();
-      const snrDown = document.getElementById("snrDown").value.trim();
+            const snrUp = document.getElementById("snr_up").value.trim();
+            const snrDown = document.getElementById("snr_down").value.trim();
 
-      const atenuUp = document.getElementById("atenuUp").value.trim();
-      const atenuDown = document.getElementById("atenuDown").value.trim();
+            const attUp = document.getElementById("att_up").value.trim();
+            const attDown = document.getElementById("att_down").value.trim();
 
-      const desconexiones = document.getElementById("desconexionesADSL").value.trim();
+            let modem = modemSelect.value;
+            if (modem === "otro") modem = otroModemInput.value.trim();
 
-      let texto = `RECLAMO ADSL\n`;
-      texto += `Dirección: Verificada\n`;
-      if (ubicacion) texto += `Ubicación: ${ubicacion}\n`;
-      texto += `Contacto: ${contacto}\n`;
-      texto += `Comentario: ${comentario}\n`;
-      texto += `Modem: ${modem}\n`;
-      texto += `Rate: ${rateUp} / ${rateDown} Kbps\n`;
-      texto += `SNR: ${snrUp} / ${snrDown} dBm\n`;
-      texto += `Atenuación: ${atenuUp} / ${atenuDown} dBm\n`;
-      texto += `Desconexiones (7 días): ${desconexiones}`;
+            let texto = `RECLAMO ADSL\n`;
+            texto += `Dirección: Verificada\n`;
+            if (ubicacion) texto += `Ubicación: ${ubicacion}\n`;
+            texto += `Contacto: ${contacto}\n`;
+            texto += `Comentario: ${comentario}\n`;
+            texto += `Módem: ${modem}\n`;
+            texto += `Rate: ${rateUp}/${rateDown} Kbps\n`;
+            texto += `SNR: ${snrUp}/${snrDown} dBm\n`;
+            texto += `Atenuación: ${attUp}/${attDown} dBm\n`;
+            texto += `Desconexiones (7 días): ${desconexiones}`;
 
-      resultadoADSL.textContent = texto;
-      resultadoADSLContainer.style.display = "block";
-      copiarADSLBtn.disabled = false;
-    });
-  }
+            resultado.textContent = texto;
+            resultadoContainer.style.display = "block";
+            copiarBtn.disabled = false;
+        });
+    }
 
-  if (copiarADSLBtn) {
-    copiarADSLBtn.addEventListener("click", () => {
-      navigator.clipboard.writeText(resultadoADSL.textContent);
-      copiarADSLBtn.textContent = "Copiado";
-      setTimeout(() => copiarADSLBtn.textContent = "Copiar texto", 1500);
-    });
-  }
+    if (copiarBtn) {
+        copiarBtn.addEventListener("click", () => {
+            navigator.clipboard.writeText(resultado.textContent);
+            copiarBtn.textContent = "Copiado";
+            setTimeout(() => copiarBtn.textContent = "Copiar texto", 1500);
+        });
+    }
 });
