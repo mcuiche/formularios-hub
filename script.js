@@ -149,5 +149,35 @@ Desconexiones (7 días): ${des}`;
       document.getElementById("copiarBtn_wireless").disabled = false;
     });
   }
+/* -------- BOTONES DE COPIAR (FTTH, ADSL, WIRELESS) -------- */
+const copiarFTTH = document.getElementById("copiarBtn");
+if (copiarFTTH) {
+  copiarFTTH.addEventListener("click", () => {
+    const txt = document.getElementById("resultado").textContent;
+    navigator.clipboard.writeText(txt);
+    copiarFTTH.textContent = "¡Copiado!";
+    setTimeout(() => copiarFTTH.textContent = "Copiar texto", 1200);
+  });
+}
+
+const copiarADSL = document.getElementById("copiarBtn_adsl");
+if (copiarADSL) {
+  copiarADSL.addEventListener("click", () => {
+    const txt = document.getElementById("resultado_adsl").textContent;
+    navigator.clipboard.writeText(txt);
+    copiarADSL.textContent = "¡Copiado!";
+    setTimeout(() => copiarADSL.textContent = "Copiar texto", 1200);
+  });
+}
+
+const copiarWireless = document.getElementById("copiarBtn_wireless");
+if (copiarWireless) {
+  copiarWireless.addEventListener("click", () => {
+    const txt = document.getElementById("resultado_wireless").textContent;
+    navigator.clipboard.writeText(txt);
+    copiarWireless.textContent = "¡Copiado!";
+    setTimeout(() => copiarWireless.textContent = "Copiar texto", 1200);
+  });
+}
 
 });
