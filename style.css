@@ -95,8 +95,17 @@ button:disabled {
 }
 
 .volver {
-  margin-top: 10px;
   display: inline-block;
-  color: #005599;
+  padding: 10px 16px;
+  margin-left: 10px;
+  background-color: #555;
+  color: white;
   text-decoration: none;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.volver:hover {
+  background-color: #333;
 }
