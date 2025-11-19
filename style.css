@@ -109,3 +109,80 @@ button:disabled {
 .volver:hover {
   background-color: #333;
 }
+
+/* --- BOTÓN DEL TEMA --- */
+.theme-btn {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  background: #333;
+  color: #fff;
+  border: 1px solid #666;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  z-index: 999;
+  font-size: 14px;
+}
+.theme-btn:hover {
+  background: #444;
+}
+
+/* --- VARIABLES DEL TEMA CLARO (default) --- */
+:root {
+  --bg: #ffffff;
+  --text: #222;
+  --container-bg: #f9f9f9;
+  --input-bg: #fff;
+  --input-border: #ccc;
+  --button-bg: #ddd;
+  --button-text: #000;
+}
+
+/* --- VARIABLES DEL MODO OSCURO --- */
+body.dark {
+  --bg: #121212;
+  --text: #e0e0e0;
+  --container-bg: #1c1c1c;
+  --input-bg: #2c2c2c;
+  --input-border: #444;
+  --button-bg: #333;
+  --button-text: #fff;
+}
+
+/* --- APLICAR VARIABLES A LA UI --- */
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+.container {
+  background: var(--container-bg);
+  border: 1px solid var(--input-border);
+}
+
+input, textarea, select {
+  background: var(--input-bg);
+  color: var(--text);
+  border: 1px solid var(--input-border);
+}
+
+button {
+  background: var(--button-bg);
+  color: var(--button-text);
+  border: 1px solid var(--input-border);
+}
+
+button:hover {
+  opacity: 0.85;
+}
+
+a.volver {
+  background: var(--button-bg);
+  color: var(--button-text);
+  border: 1px solid var(--input-border);
+}
+
+a.volver:hover {
+  opacity: 0.85;
+}

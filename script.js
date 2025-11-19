@@ -149,5 +149,97 @@ Desconexiones (7 días): ${des}`;
       document.getElementById("copiarBtn_wireless").disabled = false;
     });
   }
+/* -------- BOTONES DE COPIAR (FTTH, ADSL, WIRELESS) -------- */
+const copiarFTTH = document.getElementById("copiarBtn");
+if (copiarFTTH) {
+  copiarFTTH.addEventListener("click", () => {
+    const txt = document.getElementById("resultado").textContent;
+    navigator.clipboard.writeText(txt);
+    copiarFTTH.textContent = "¡Copiado!";
+    setTimeout(() => copiarFTTH.textContent = "Copiar texto", 1200);
+  });
+}
 
+const copiarADSL = document.getElementById("copiarBtn_adsl");
+if (copiarADSL) {
+  copiarADSL.addEventListener("click", () => {
+    const txt = document.getElementById("resultado_adsl").textContent;
+    navigator.clipboard.writeText(txt);
+    copiarADSL.textContent = "¡Copiado!";
+    setTimeout(() => copiarADSL.textContent = "Copiar texto", 1200);
+  });
+}
+
+const copiarWireless = document.getElementById("copiarBtn_wireless");
+if (copiarWireless) {
+  copiarWireless.addEventListener("click", () => {
+    const txt = document.getElementById("resultado_wireless").textContent;
+    navigator.clipboard.writeText(txt);
+    copiarWireless.textContent = "¡Copiado!";
+    setTimeout(() => copiarWireless.textContent = "Copiar texto", 1200);
+  });
+}
+const copiarCPlay = document.getElementById("copiarBtn_cplay");
+if (copiarCPlay) {
+  copiarCPlay.addEventListener("click", () => {
+    const txt = document.getElementById("resultado_cplay").textContent;
+    navigator.clipboard.writeText(txt);
+    copiarCPlay.textContent = "¡Copiado!";
+    setTimeout(() => copiarCPlay.textContent = "Copiar texto", 1200);
+  });
+}
 });
+
+/* ---------------- TEMA OSCURO / CLARO ---------------- */
+document.addEventListener("DOMContentLoaded", () => {
+
+  // Aplicar tema guardado
+  const saved = localStorage.getItem("theme");
+  if (saved === "dark") {
+    document.body.classList.add("dark");
+  }
+
+  // Botón para alternar
+  const btn = document.getElementById("toggleTheme");
+  if (btn) {
+    btn.addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+      localStorage.setItem("theme",
+        document.body.classList.contains("dark") ? "dark" : "light"
+      );
+    });
+  }
+});
+
+  /* -------------------- COTESMA PLAY -------------------- */
+  const genCP = document.getElementById("generarBtn_cplay");
+  if (genCP) {
+    genCP.addEventListener("click", () => {
+      const check = document.getElementById("direccionCheck_cplay");
+      if (!check.checked) return alert("Debes confirmar la dirección.");
+
+      const ubic = document.getElementById("ubicacion_cplay").value;
+      const cont = document.getElementById("contacto_cplay").value;
+      const com = document.getElementById("comentario_cplay").value;
+
+      const stb = document.getElementById("equipos_cplay").value;
+      const app = document.getElementById("version_app_cplay").value;
+      const ont = document.getElementById("potencia_ont_cplay").value;
+      const des = document.getElementById("desconexiones_cplay").value;
+
+      const txt =
+`RECLAMO COTESMA PLAY
+Dirección: Verificada
+${ubic ? `Ubicación: ${ubic}\n` : ""}Contacto: ${cont}
+Comentario: ${com}
+
+Equipos STB: ${stb}
+Versión APP: ${app}
+Potencia ONT: ${ont}
+Desconexiones (7 días): ${des}`;
+
+      document.getElementById("resultado_cplay").textContent = txt;
+      document.getElementById("resultadoContainer_cplay").style.display = "block";
+      document.getElementById("copiarBtn_cplay").disabled = false;
+    });
+  }
