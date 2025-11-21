@@ -351,86 +351,98 @@ if (velSelect) {
   });
 }
 
-/* --------- CAMBIO DE TECNOLOGÍA --------- */
-const genCambioTec = document.getElementById("generarBtn_cambioTec");
-if (genCambioTec) {
-  genCambioTec.addEventListener("click", () => {
-    
-    const plano = document.getElementById("planoAcometida").value;
-    if (plano === "No") {
-      alert("Debemos enviar el plano de acometida antes de continuar.");
-      return;
-    }
 
-    const servicio = document.getElementById("servicioCambiar").value;
-    const contacto = document.getElementById("contacto").value;
-    const direccion = document.getElementById("direccion").value;
-    const ubicacion = document.getElementById("ubicacion").value;
-    const catastro = document.getElementById("catastro").value;
-    const costo = document.getElementById("costoInstalacion").value;
-    const tramite = document.getElementById("tramiteFT")?.value || "";
-    const identificador = document.getElementById("identificador").value;
-    const velocidad = document.getElementById("velocidad").value;
-    const cam = document.getElementById("monitoreaCam").value;
-    const redInt = document.getElementById("redInterna").value;
-    const llegada = document.getElementById("formaLlegada").value;
-    const alarma = document.getElementById("alarma").value;
-    const modRed = document.getElementById("modRedInterna").value;
-    const planoAcom = document.getElementById("planoAcometida").value;
+// -----------------------------
+// CAMBIO DE TECNOLOGÍA
+// -----------------------------
 
-    let texto = 
-`CAMBIO DE TECNOLOGÍA
-Servicio a cambiar: ${servicio}
-Contacto: ${contacto}
-Dirección: ${direccion}
-Ubicación/Coordenadas: ${ubicacion}
-Catastro: ${catastro}
-Costo instalación: ${costo} ${costo === "Bonificado Falla Técnica" ? "(Trámite: " + tramite + ")" : ""}
-Identificador: ${identificador}
-Velocidad: ${velocidad}
+// Mostrar / ocultar campo TRÁMITE según costo instalación
+document.getElementById("costoInstalacion").addEventListener("change", function () {
+  const tramiteBox = document.getElementById("tramiteBox");
 
-Monitorea cámaras: ${cam}
-Tiene red interna/repetidores: ${redInt}
-Servicio llega en forma: ${llegada}
-Alarma: ${alarma}
-Modificación red interna: ${modRed}
-Plano de acometida: ${planoAcom}
+  if (this.value === "Bonificado Falla Técnica") {
+    tramiteBox.style.display = "block";
+  } else {
+    tramiteBox.style.display = "none";
+    document.getElementById("tramiteFT").value = "";
+  }
+});
+
+// Mostrar advertencia si red interna modificada = SI
+document.getElementById("modRedInterna").addEventListener("change", function () {
+  document.getElementById("warningRed").style.display =
+    this.value === "Si" ? "block" : "none";
+});
+
+// Botón generar texto
+document.getElementById("generarBtn_cambioTec").addEventListener("click", function () {
+
+  // VALIDACIÓN: Plano de acometida debe ser Bot o Mail
+  const plano = document.getElementById("planoAcometida").value;
+
+  if (plano === "No") {
+    alert("Debemos enviar el plano de acometida antes de continuar.");
+    return;
+  }
+
+  // Tomar valores según el HTML
+  const servicio = document.getElementById("servicioCambiar").value;
+  const contacto = document.getElementById("contacto").value;
+  const direccion = document.getElementById("direccion").value;
+  const ubicacion = document.getElementById("ubicacion_cambio").value;
+  const catastro = document.getElementById("catastro").value;
+  const costoInstalacion = document.getElementById("costoInstalacion").value;
+  const tramiteFT = document.getElementById("tramiteFT").value;
+  const identificador = document.getElementById("identificador").value;
+  const velocidad = document.getElementById("velocidad").value;
+
+  const monitorea = document.getElementById("monitoreaCam").value;
+  const redInterna = document.getElementById("redInterna").value;
+  const llegada = document.getElementById("formaLlegada").value;
+  const alarmaProv = document.getElementById("alarma").value;
+  const redModificada = document.getElementById("modRedInterna").value;
+
+  const planoAcometida = plano;
+
+  // Armado del texto final
+  let texto = `*Cambio de Tecnología*
+
+*Servicio a cambiar:* ${servicio}
+*Contacto:* ${contacto}
+*Dirección:* ${direccion}
+*Ubicación/Coordenadas:* ${ubicacion}
+*Catastro:* ${catastro}
+
+*Costo de instalación:* ${costoInstalacion}`;
+
+  if (costoInstalacion === "Bonificado Falla Técnica") {
+    texto += `\n*N° Trámite:* ${tramiteFT}`;
+  }
+
+  texto += `
+
+*Identificador:* ${identificador}
+*Velocidad:* ${velocidad}
+
+*Monitorea cámaras:* ${monitorea}
+*Tiene red interna o repetidores:* ${redInterna}
+*Servicio llega de forma:* ${llegada}
+*En caso de alarma avisa al proveedor:* ${alarmaProv}
+*Red interna modificada:* ${redModificada}
+*Plano de acometida:* ${planoAcometida}
 `;
 
-    document.getElementById("resultado_cambioTec").textContent = texto;
-    document.getElementById("copiarBtn_cambioTec").disabled = false;
-  });
-}
+  // Mostrar en <pre> usando textContent
+  document.getElementById("resultado_cambioTec").textContent = texto;
 
-/* COPIAR TEXTO - CAMBIO TECNOLOGÍA */
-const copiarCT = document.getElementById("copiarBtn_cambioTec");
-if (copiarCT) {
-  copiarCT.addEventListener("click", () => {
-    const txt = document.getElementById("resultado_cambioTec").textContent;
-    navigator.clipboard.writeText(txt);
-    copiarCT.textContent = "¡Copiado!";
-    setTimeout(() => copiarCT.textContent = "Copiar texto", 1200);
-  });
-}
+  // Activar botón copiar
+  document.getElementById("copiarBtn_cambioTec").disabled = false;
+});
 
-/* MOSTRAR / OCULTAR TRÁMITE */
-const costoInstalacion = document.getElementById("costoInstalacion");
-if (costoInstalacion) {
-  costoInstalacion.addEventListener("change", () => {
-    const box = document.getElementById("tramiteBox");
-    if (costoInstalacion.value === "Bonificado Falla Técnica") {
-      box.style.display = "block";
-    } else {
-      box.style.display = "none";
-    }
-  });
-}
-
-/* MOSTRAR WARNING DE RED INTERNA */
-const modRedInterna = document.getElementById("modRedInterna");
-if (modRedInterna) {
-  modRedInterna.addEventListener("change", () => {
-    document.getElementById("warningRed").style.display =
-      modRedInterna.value === "Si" ? "block" : "none";
-  });
-}
+// Botón copiar texto
+document.getElementById("copiarBtn_cambioTec").addEventListener("click", function () {
+  const texto = document.getElementById("resultado_cambioTec").textContent;
+  navigator.clipboard.writeText(texto);
+  this.textContent = "¡Copiado!";
+  setTimeout(() => this.textContent = "Copiar texto", 1200);
+});

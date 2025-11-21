@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cambio de Tecnología</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <div class="container">
+    <h2>Cambio de Tecnología</h2>
+
+    <!-- SERVICIOS A CAMBIAR -->
+    <label>Servicio a Cambiar:</label>
+    <select id="servicioCambiar">
+      <option value="">Seleccione...</option>
+      <option>Ftth Solo Internet</option>
+      <option>Ftth Internet + C.Play</option>
+      <option>Ftth Internet + Sip</option>
+      <option>Ftth Internet + C.Play + Sip</option>
+      <option>Ftth Solo Linea</option>
+    </select>
+
+    <!-- CONTACTO -->
+    <label>Contacto (Nombre + Teléfono):</label>
+    <input id="contacto" type="text" placeholder="Ej: Juan Pérez - 2972xxxxxx" />
+
+    <!-- DIRECCIÓN -->
+    <label>Dirección del Servicio:</label>
+    <input id="direccion" type="text" placeholder="Calle 123, Barrio XXX" />
+
+    <!-- Ubicación -->
+    <label for="ubicacion_cambio">Ubicación / Coordenadas:</label>
+    <input id="ubicacion_cambio" type="text" placeholder="Solo usar si no hay dirección clara">
+
+    <!-- CATASTRO -->
+    <label>Catastro:</label>
+    <input id="catastro" type="text" placeholder="Número de catastro" />
+
+    <!-- COSTO INSTALACIÓN -->
+    <label>Costo de Instalación:</label>
+    <select id="costoInstalacion">
+      <option value="">Seleccione...</option>
+      <option value="Bonificado Falla Técnica">Bonificado Falla Técnica (Trámite)</option>
+      <option value="1 cuota">1 cuota</option>
+      <option value="3 cuotas">3 cuotas</option>
+      <option value="5 cuotas">5 cuotas</option>
+      <option value="Bonificado Por C.Play">Bonificado por C.Play</option>
+      <option value="Bonificación Comercial">Bonificación Comercial</option>
+    </select>
+
+    <!-- TRÁMITE (solo si eligen bonificado falla técnica) -->
+    <div id="tramiteBox" style="display:none;">
+      <label>N° Trámite (6 dígitos):</label>
+      <input id="tramiteFT" type="text" placeholder="000000" maxlength="6" />
+    </div>
+
+    <!-- IDENTIFICADOR -->
+    <label>Identificador del servicio:</label>
+    <input id="identificador" type="text" placeholder="ID del servicio" />
+
+    <!-- VELOCIDAD -->
+    <label>Velocidad:</label>
+    <select id="velocidad">
+      <option value="">Seleccione...</option>
+      <option>300 MB</option>
+      <option>800 MB</option>
+      <option>1000 MB</option>
+      <option>Pbu</option>
+      <option>Por tiempo</option>
+      <option>3 MB</option>
+      <option>5 MB</option>
+      <option>8 MB</option>
+      <option>12 MB</option>
+    </select>
+
+    <!-- MONITOREA CÁMARAS -->
+    <label>¿Monitorea cámaras de seguridad?</label>
+    <select id="monitoreaCam">
+      <option value="">Seleccione...</option>
+      <option>Si</option>
+      <option>No</option>
+      <option>Seguridad</option>
+    </select>
+
+    <!-- RED INTERNA -->
+    <label>¿Tiene red interna o repetidores?</label>
+    <select id="redInterna">
+      <option value="">Seleccione...</option>
+      <option>Si</option>
+      <option>No</option>
+    </select>
+
+    <!-- LLEGA EN FORMA -->
+    <label>El servicio llega en forma:</label>
+    <select id="formaLlegada">
+      <option value="">Seleccione...</option>
+      <option>Aéreo</option>
+      <option>Terrestre</option>
+    </select>
+
+    <!-- ALARMA -->
+    <label>En caso de alarma debe avisar a proveedor:</label>
+    <select id="alarma">
+      <option value="">Seleccione...</option>
+      <option>No tiene</option>
+      <option>Notifica al proveedor</option>
+    </select>
+
+    <!-- RED INTERNA MODIFICADA -->
+    <label>¿Tiene modificada su red interna?</label>
+    <select id="modRedInterna">
+      <option value="">Seleccione...</option>
+      <option>No</option>
+      <option>Si</option>
+    </select>
+
+    <p id="warningRed" style="color: orange; font-weight: bold; display:none;">
+      ⚠ Atención: Debemos copiar configuración en el trámite.
+    </p>
+
+    <!-- PLANOS ACOMETIDA -->
+    <label>¿Se envió plano de acometida?</label>
+    <select id="planoAcometida">
+      <option value="No" selected>No</option>
+      <option value="Bot">Enviado vía BOT</option>
+      <option value="Mail">Enviado vía Mail</option>
+    </select>
+
+    <!-- ALERTA -->
+    <p id="alertaPlano" style="color:red; display:none; font-weight:bold;">
+      ⚠ Debemos enviar el plano de acometida antes de continuar.
+    </p>
+
+    <!-- BOTONES -->
+    <div class="buttons">
+      <button id="generarBtn_cambioTec" type="button">Generar texto</button>
+      <button id="copiarBtn_cambioTec" type="button" disabled>Copiar texto</button>
+      <a href="index.html" class="volver">← Volver al Hub</a>
+    </div>
+
+    <!-- RESULTADO -->
+    <pre id="resultado_cambioTec" class="resultado"></pre>
+
+  </div>
+</body>
+</html>
