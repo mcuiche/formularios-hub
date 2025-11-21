@@ -1,0 +1,98 @@
+// -----------------------------
+// CAMBIO DE TECNOLOGÍA
+// -----------------------------
+const genCambioTec = document.getElementById("generarBtn_cambioTec");
+if (genCambioTec) {
+  genCambioTec.addEventListener("click", () => {
+
+  // Tomar valores según el HTML
+  const servicio = document.getElementById("servicioCambiar").value;
+  const contacto = document.getElementById("contacto").value;
+  const direccion = document.getElementById("direccion").value;
+  const ubicacion = document.getElementById("ubicacion_cambio").value;
+  const catastro = document.getElementById("catastro").value;
+  const costoInstalacion = document.getElementById("costoInstalacion").value;
+  const tramiteFT = document.getElementById("tramiteFT").value;
+  const identificador = document.getElementById("identificador").value;
+  const velocidad = document.getElementById("velocidad").value;
+
+  const monitorea = document.getElementById("monitoreaCam").value;
+  const redInterna = document.getElementById("redInterna").value;
+  const llegada = document.getElementById("formaLlegada").value;
+  const alarmaProv = document.getElementById("alarma").value;
+  const redModificada = document.getElementById("modRedInterna").value;
+
+  const planoAcometida = plano;
+
+  // Armado del texto final
+  let texto = `*Cambio de Tecnología*
+
+*Servicio a cambiar:* ${servicio}
+*Contacto:* ${contacto}
+*Dirección:* ${direccion}
+*Ubicación/Coordenadas:* ${ubicacion}
+*Catastro:* ${catastro}
+
+*Costo de instalación:* ${costoInstalacion}`;
+
+  if (costoInstalacion === "Bonificado Falla Técnica") {
+    texto += `\n*N° Trámite:* ${tramiteFT}`;
+  }
+
+  texto += `
+
+*Identificador:* ${identificador}
+*Velocidad:* ${velocidad}
+
+*Monitorea cámaras:* ${monitorea}
+*Tiene red interna o repetidores:* ${redInterna}
+*Servicio llega de forma:* ${llegada}
+*En caso de alarma avisa al proveedor:* ${alarmaProv}
+*Red interna modificada:* ${redModificada}
+*Plano de acometida:* ${planoAcometida}
+`;
+})}
+
+// Mostrar / ocultar campo TRÁMITE según costo instalación
+document.getElementById("costoInstalacion").addEventListener("change", function () {
+  const tramiteBox = document.getElementById("tramiteBox");
+
+  if (this.value === "Bonificado Falla Técnica") {
+    tramiteBox.style.display = "block";
+  } else {
+    tramiteBox.style.display = "none";
+    document.getElementById("tramiteFT").value = "";
+  }
+});
+
+// Mostrar advertencia si red interna modificada = SI
+document.getElementById("modRedInterna").addEventListener("change", function () {
+  document.getElementById("warningRed").style.display =
+    this.value === "Si" ? "block" : "none";
+});
+
+// Botón generar texto
+document.getElementById("generarBtn_cambioTec").addEventListener("click", function () {
+
+  // VALIDACIÓN: Plano de acometida debe ser Bot o Mail
+  const plano = document.getElementById("planoAcometida").value;
+
+  if (plano === "No") {
+    alert("Debemos enviar el plano de acometida antes de continuar.");
+    return;
+  }
+
+  // Mostrar en <pre> usando textContent
+  document.getElementById("resultado_cambioTec").textContent = texto;
+
+  // Activar botón copiar
+  document.getElementById("copiarBtn_cambioTec").disabled = false;
+});
+
+// Botón copiar texto
+document.getElementById("copiarBtn_cambioTec").addEventListener("click", function () {
+  const texto = document.getElementById("resultado_cambioTec").textContent;
+  navigator.clipboard.writeText(texto);
+  this.textContent = "¡Copiado!";
+  setTimeout(() => this.textContent = "Copiar texto", 1200);
+});

@@ -1,0 +1,59 @@
+//-----------------------------------------------------//
+/* -------- GENERAR TEXTO - CAMBIO DOMICILIO -------- */
+//-----------------------------------------------------//
+
+const genCambio = document.getElementById("generarBtn_cambio");
+if (genCambio) {
+  genCambio.addEventListener("click", () => {
+
+    const tipo = document.getElementById("tipoCambio").value;
+    const contacto = document.getElementById("contacto_cambio").value || "No indicado";
+    const ubicacion = document.getElementById("ubicacion_cambio").value || "No aplica";
+    const chat = document.getElementById("chat_cambio").value || "No indicado";
+    const direccionActual = document.getElementById("direccion_actual").value || "No indicado";
+    const direccionNueva = document.getElementById("direccion_nueva").value || "No indicado";
+    const catastro = document.getElementById("catastro_nuevo").value || "No indicado";
+    let velocidad = document.getElementById("velocidad_cambio").value;
+
+    if (velocidad === "otro") {
+      velocidad = document.getElementById("velocidad_otro").value || "No indicado";
+}
+
+
+    const texto =
+`Cambio de domicilio
+Tipo: ${tipo}
+Contacto: ${contacto}
+Ubicación/Coordenadas: ${ubicacion}
+Chat: ${chat}
+
+Dirección actual: ${direccionActual}
+Dirección nueva: ${direccionNueva}
+Nuevo catastro: ${catastro}
+Velocidad: ${velocidad}
+`;
+
+    document.getElementById("resultado_cambio").textContent = texto;
+    document.getElementById("copiarBtn_cambio").disabled = false;
+  });
+}
+
+/* -------- COPIAR TEXTO - CAMBIO DOMICILIO -------- */
+const copiarCambio = document.getElementById("copiarBtn_cambio");
+if (copiarCambio) {
+  copiarCambio.addEventListener("click", () => {
+    const txt = document.getElementById("resultado_cambio").textContent;
+    navigator.clipboard.writeText(txt);
+    copiarCambio.textContent = "¡Copiado!";
+    setTimeout(() => copiarCambio.textContent = "Copiar texto", 1200);
+  });
+}
+
+/* -------- SELECTOR VELOCIDAD (CAMBIO DOMICILIO) -------- */
+const velSelect = document.getElementById("velocidad_cambio");
+if (velSelect) {
+  velSelect.addEventListener("change", () => {
+    const cont = document.getElementById("velocidad_otro_container");
+    cont.style.display = velSelect.value === "otro" ? "block" : "none";
+  });
+}

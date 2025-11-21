@@ -358,9 +358,27 @@ if (velSelect) {
 // -----------------------------
 // CAMBIO DE TECNOLOGÍA
 // -----------------------------
-const genCambioTec = document.getElementById("generarBtn_cambioTec");
-if (genCambioTec) {
-  genCambioTec.addEventListener("click", () => {
+
+// Mostrar / ocultar campo TRÁMITE según costo instalación
+document.getElementById("costoInstalacion").addEventListener("change", function () {
+  const tramiteBox = document.getElementById("tramiteBox");
+
+  if (this.value === "Bonificado Falla Técnica") {
+    tramiteBox.style.display = "block";
+  } else {
+    tramiteBox.style.display = "none";
+    document.getElementById("tramiteFT").value = "";
+  }
+});
+
+// Mostrar advertencia si red interna modificada = SI
+document.getElementById("modRedInterna").addEventListener("change", function () {
+  document.getElementById("warningRed").style.display =
+    this.value === "Si" ? "block" : "none";
+});
+
+// Botón generar texto
+document.getElementById("generarBtn_cambioTec").addEventListener("click", function () {
 
   // VALIDACIÓN: Plano de acometida debe ser Bot o Mail
   const plano = document.getElementById("planoAcometida").value;
@@ -416,40 +434,13 @@ if (genCambioTec) {
 *Red interna modificada:* ${redModificada}
 *Plano de acometida:* ${planoAcometida}
 `;
-    document.getElementById("resultado_cambioTec").textContent = texto;
-    document.getElementById("copiarBtn_cambioTec").disabled = false;
 
-})
-}
-
-// Mostrar / ocultar campo TRÁMITE según costo instalación
-document.getElementById("costoInstalacion").addEventListener("change", function () {
-  const tramiteBox = document.getElementById("tramiteBox");
-
-  if (this.value === "Bonificado Falla Técnica") {
-    tramiteBox.style.display = "block";
-  } else {
-    tramiteBox.style.display = "none";
-    document.getElementById("tramiteFT").value = "";
-  }
-});
-
-// Mostrar advertencia si red interna modificada = SI
-document.getElementById("modRedInterna").addEventListener("change", function () {
-  document.getElementById("warningRed").style.display =
-    this.value === "Si" ? "block" : "none";
-});
-
-// Botón generar texto
-//document.getElementById("generarBtn_cambioTec").addEventListener("click", function () {
-
-  
   // Mostrar en <pre> usando textContent
-  //document.getElementById("resultado_cambioTec").textContent = texto;
+  document.getElementById("resultado_cambioTec").textContent = texto;
 
   // Activar botón copiar
-  //document.getElementById("copiarBtn_cambioTec").disabled = false;
-//});
+  document.getElementById("copiarBtn_cambioTec").disabled = false;
+});
 
 // Botón copiar texto
 document.getElementById("copiarBtn_cambioTec").addEventListener("click", function () {
@@ -459,3 +450,104 @@ document.getElementById("copiarBtn_cambioTec").addEventListener("click", functio
   setTimeout(() => this.textContent = "Copiar texto", 1200);
 });
 
+
+// -----------------------------
+// Alta servicio
+// -----------------------------
+
+// Mostrar / ocultar campo TRÁMITE según costo instalación
+document.getElementById("alta_costoInstalacion").addEventListener("change", function () {
+  const tramiteBox_alta = document.getElementById("tramiteBox_alta");
+
+  if (this.value === "Bonificado Falla Técnica") {
+    tramiteBox.style.display = "block";
+  } else {
+    tramiteBox.style.display = "none";
+    document.getElementById("tramiteFT_alta").value = "";
+  }
+});
+
+// Mostrar advertencia si red interna modificada = SI
+document.getElementById("modRedInterna_alta").addEventListener("change", function () {
+  document.getElementById("warningRed_alta").style.display =
+    this.value === "Si" ? "block" : "none";
+});
+
+// Botón generar texto
+document.getElementById("generarBtn_altaServicio").addEventListener("click", function () {
+
+  // VALIDACIÓN: Plano de acometida debe ser Bot o Mail
+  const plano = document.getElementById("planoAcometida_alta").value;
+
+  if (plano === "No") {
+    alert("Debemos enviar el plano de acometida antes de continuar.");
+    return;
+  }
+
+  // Tomar valores según el HTML
+  const servicioAlta = document.getElementById("servicioAlta").value;
+  const clienteDni = document.getElementById("clienteDni").value;
+  const contacto = document.getElementById("contacto_alta").value;
+  const direccion_alta = document.getElementById("direccion_alta").value;
+  const ubicacion_alta = document.getElementById("ubicacion_alta").value;
+  const catastro_alta = document.getElementById("catastro_alta").value;
+  const alta_costoInstalacion = document.getElementById("alta_costoInstalacion").value;
+  const tramiteFT_alta = document.getElementById("tramiteFT_alta").value;
+  const identificador_alta = document.getElementById("identificador_alta").value;
+  const velocidad_alta = document.getElementById("velocidad_alta").value;
+  const observacion_alta = document.getElementById("observacion_alta").value;
+
+  const monitoreaCam_alta = document.getElementById("monitoreaCam_alta").value;
+  const redInterna_alta = document.getElementById("redInterna_alta").value;
+  const formaLlegada_alta = document.getElementById("formaLlegada_alta").value;
+  const alarma_alta = document.getElementById("alarma_alta").value;
+  const modRedInterna_alta = document.getElementById("modRedInterna_alta").value;
+  const linea24_alta = document.getElementById("linea24_alta").value;
+
+  const planoAcometida_alta = plano;
+
+  // Armado del texto final
+  let texto = `*Cambio de Tecnología*
+
+*Servicio a cambiar:* ${servicioAlta}
+*Cliente/DNI:* ${clienteDni}
+*Contacto:* ${contacto}
+*Dirección:* ${direccion_alta}
+*Ubicación/Coordenadas:* ${ubicacion_alta}
+*Catastro:* ${catastro_alta}
+
+*Costo de instalación:* ${alta_costoInstalacion}`;
+
+  if (alta_costoInstalacion === "Bonificado Falla Técnica") {
+    texto += `\n*N° Trámite:* ${tramiteFT_alta}`;
+  }
+
+  texto += `
+
+*Identificador:* ${identificador_alta}
+*Velocidad:* ${velocidad_alta}
+*Observación:* ${observacion_alta}
+
+*Monitorea cámaras:* ${monitoreaCam_alta}
+*Tiene red interna o repetidores:* ${redInterna_alta}
+*Servicio llega de forma:* ${formaLlegada_alta}
+*En caso de alarma avisa al proveedor:* ${alarma_alta}
+*Red interna modificada:* ${modRedInterna_alta}
+*Línea 24 horas instalada:* ${linea24_alta}
+*Plano de acometida:* ${planoAcometida_alta}
+`;
+
+  // Mostrar en <pre> usando textContent
+  document.getElementById("resultado_altaServicio").textContent = texto;
+
+  // Activar botón copiar
+  document.getElementById("copiarBtn_altaServicio").disabled = false;
+});
+
+// Botón copiar texto
+document.getElementById("copiarBtn_altaServicio").addEventListener("click", function () {
+  const texto = document.getElementById("resultado_altaServicio").textContent;
+  navigator.clipboard.writeText(texto);
+  this.textContent = "¡Copiado!";
+  setTimeout(() => this.textContent = "Copiar texto", 1200);
+});
