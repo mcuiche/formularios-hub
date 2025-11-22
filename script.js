@@ -294,7 +294,10 @@ if (copiarSIP) {
   });
 }
 
+//-----------------------------------------------------//
 /* -------- GENERAR TEXTO - CAMBIO DOMICILIO -------- */
+//-----------------------------------------------------//
+
 const genCambio = document.getElementById("generarBtn_cambio");
 if (genCambio) {
   genCambio.addEventListener("click", () => {
@@ -355,27 +358,9 @@ if (velSelect) {
 // -----------------------------
 // CAMBIO DE TECNOLOGÍA
 // -----------------------------
-
-// Mostrar / ocultar campo TRÁMITE según costo instalación
-document.getElementById("costoInstalacion").addEventListener("change", function () {
-  const tramiteBox = document.getElementById("tramiteBox");
-
-  if (this.value === "Bonificado Falla Técnica") {
-    tramiteBox.style.display = "block";
-  } else {
-    tramiteBox.style.display = "none";
-    document.getElementById("tramiteFT").value = "";
-  }
-});
-
-// Mostrar advertencia si red interna modificada = SI
-document.getElementById("modRedInterna").addEventListener("change", function () {
-  document.getElementById("warningRed").style.display =
-    this.value === "Si" ? "block" : "none";
-});
-
-// Botón generar texto
-document.getElementById("generarBtn_cambioTec").addEventListener("click", function () {
+const genCambioTec = document.getElementById("generarBtn_cambioTec");
+if (genCambioTec) {
+  genCambioTec.addEventListener("click", () => {
 
   // VALIDACIÓN: Plano de acometida debe ser Bot o Mail
   const plano = document.getElementById("planoAcometida").value;
@@ -431,12 +416,27 @@ document.getElementById("generarBtn_cambioTec").addEventListener("click", functi
 *Red interna modificada:* ${redModificada}
 *Plano de acometida:* ${planoAcometida}
 `;
+    document.getElementById("resultado_cambioTec").textContent = texto;
+    document.getElementById("copiarBtn_cambioTec").disabled = false;
 
-  // Mostrar en <pre> usando textContent
-  document.getElementById("resultado_cambioTec").textContent = texto;
+})
 
-  // Activar botón copiar
-  document.getElementById("copiarBtn_cambioTec").disabled = false;
+// Mostrar / ocultar campo TRÁMITE según costo instalación
+document.getElementById("costoInstalacion").addEventListener("change", function () {
+  const tramiteBox = document.getElementById("tramiteBox");
+
+  if (this.value === "Bonificado Falla Técnica") {
+    tramiteBox.style.display = "block";
+  } else {
+    tramiteBox.style.display = "none";
+    document.getElementById("tramiteFT").value = "";
+  }
+});
+
+// Mostrar advertencia si red interna modificada = SI
+document.getElementById("modRedInterna").addEventListener("change", function () {
+  document.getElementById("warningRed").style.display =
+    this.value === "Si" ? "block" : "none";
 });
 
 // Botón copiar texto
@@ -446,3 +446,90 @@ document.getElementById("copiarBtn_cambioTec").addEventListener("click", functio
   this.textContent = "¡Copiado!";
   setTimeout(() => this.textContent = "Copiar texto", 1200);
 });
+
+}
+
+
+
+// -----------------------------
+// Alta servicio
+// -----------------------------
+
+const genaltaserv = document.getElementById("generarBtn_altaServicio");
+if (genaltaserv) {
+  genaltaserv.addEventListener("click", () => {
+
+  // VALIDACIÓN: Plano de acometida debe ser Bot o Mail
+  const plano = document.getElementById("planoAcometida_alta").value;
+
+  if (plano === "No") {
+    alert("Debemos enviar el plano de acometida antes de continuar.");
+    return;
+  }
+
+  // Tomar valores según el HTML
+  const servicio = document.getElementById("servicioAlta").value;
+  const cliente = document.getElementById("clienteDni").value
+  const contacto = document.getElementById("contacto_alta").value;
+  const direccion = document.getElementById("direccion_alta").value;
+  const ubicacion = document.getElementById("ubicacion_alta").value;
+  const catastro = document.getElementById("catastro_alta").value;
+  const identificador = document.getElementById("identificador_alta").value;
+  const velocidad = document.getElementById("velocidad_alta").value;
+  const observacion = document.getElementById("observacion_alta").value;
+
+  const monitorea = document.getElementById("monitoreaCam_alta").value;
+  const redInterna = document.getElementById("redInterna_alta").value;
+  const llegada = document.getElementById("formaLlegada_alta").value;
+  const alarmaProv = document.getElementById("alarma_alta").value;
+  const redModificada = document.getElementById("modRedInterna_alta").value;
+
+  const planoAcometida = plano;
+
+  // Armado del texto final
+  let texto = `*Cambio de Tecnología*
+
+*Servicio a cambiar:* ${servicio}
+*Cliente/DNI:* ${cliente}
+*Contacto:* ${contacto}
+*Dirección:* ${direccion}
+*Ubicación/Coordenadas:* ${ubicacion}
+*Catastro:* ${catastro}
+
+*Identificador:* ${identificador}
+*Velocidad:* ${velocidad}
+*Observación:* ${observacion}
+
+*Monitorea cámaras:* ${monitorea}
+*Tiene red interna o repetidores:* ${redInterna}
+*Servicio llega de forma:* ${llegada}
+*En caso de alarma avisa al proveedor:* ${alarmaProv}
+*Red interna modificada:* ${redModificada}
+*Plano de acometida:* ${planoAcometida}
+`;
+    document.getElementById("resultado_altaServicio").textContent = texto;
+    document.getElementById("copiarBtn_altaServicio").disabled = false;
+
+})
+
+// Mostrar advertencia si red interna modificada = SI
+document.getElementById("modRedInterna_alta").addEventListener("change", function () {
+  document.getElementById("warningRed_alta").style.display =
+    this.value === "Si" ? "block" : "none";
+});
+
+// Mostrar advertencia si Combo200 Zapala = SI
+document.getElementById("servicioAlta").addEventListener("change", function () {
+  document.getElementById("warningZapala").style.display =
+    this.value === "Combo 200MB + C.Play" ? "block" : "none";
+});
+
+// Botón copiar texto
+document.getElementById("copiarBtn_altaServicio").addEventListener("click", function () {
+  const texto = document.getElementById("resultado_altaServicio").textContent;
+  navigator.clipboard.writeText(texto);
+  this.textContent = "¡Copiado!";
+  setTimeout(() => this.textContent = "Copiar texto", 1200);
+});
+}
+

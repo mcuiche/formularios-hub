@@ -1,73 +1,83 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cambio de Tecnología</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Alta de Servicio</title>
   <link rel="stylesheet" href="style.css" />
   <script src="script.js" defer></script>
 </head>
-
 <body>
   <div class="container">
-    <h2>Cambio de Tecnología</h2>
+    <h2>Alta de Servicio</h2>
 
-    <!-- SERVICIOS A CAMBIAR -->
-    <label>Servicio a Cambiar:</label>
-    <select id="servicioCambiar">
+    <!-- SERVICIO SOLICITADO -->
+    <label>Servicio Solicitado:</label>
+    <select id="servicioAlta">
       <option value="">Seleccione...</option>
       <option>Ftth Solo Internet</option>
       <option>Ftth Internet + C.Play</option>
       <option>Ftth Internet + Sip</option>
       <option>Ftth Internet + C.Play + Sip</option>
+      <option>Combo 200MB + C.Play</option>
+      <option>Cotesma Play</option>
       <option>Ftth Solo Linea</option>
     </select>
 
+    <p id="warningZapala" style="color:orange; font-weight:bold; display:none;">
+      ⚠ Atención: "Combo 200MB + C.Play" sólo es válido para Zapala.
+    </p>
+
+    <!-- CLIENTE / DNI -->
+    <label>Cliente / DNI:</label>
+    <input id="clienteDni" type="text" placeholder="Nombre - DNI" />
+
     <!-- CONTACTO -->
     <label>Contacto (Nombre + Teléfono):</label>
-    <input id="contacto" type="text" placeholder="Ej: Juan Pérez - 2972xxxxxx" />
+    <input id="contacto_alta" type="text" placeholder="Ej: Juan Pérez - 2972xxxxxx" />
 
     <!-- DIRECCIÓN -->
-    <label>Dirección del Servicio:</label>
-    <input id="direccion" type="text" placeholder="Calle 123, Barrio XXX" />
+    <label>Dirección del servicio:</label>
+    <input id="direccion_alta" type="text" placeholder="Calle 123, Barrio XXX" />
 
-    <!-- Ubicación -->
-    <label for="ubicacion_cambio">Ubicación / Coordenadas:</label>
-    <input id="ubicacion_cambio" type="text" placeholder="Solo usar si no hay dirección clara">
+    <!-- UBICACIÓN / COORDENADAS -->
+    <label>Ubicación / Coordenadas (solo si no hay dirección clara):</label>
+    <input id="ubicacion_alta" type="text" placeholder="Pegar ubicación de Google Maps" />
 
     <!-- CATASTRO -->
     <label>Catastro:</label>
-    <input id="catastro" type="text" placeholder="Número de catastro" />
+    <input id="catastro_alta" type="text" placeholder="Número de catastro" />
 
     <!-- COSTO INSTALACIÓN -->
     <label>Costo de Instalación:</label>
-    <select id="costoInstalacion">
+    <select id="alta_costoInstalacion">
       <option value="">Seleccione...</option>
-      <option value="Bonificado Falla Técnica">Bonificado Falla Técnica (Trámite)</option>
       <option value="1 cuota">1 cuota</option>
       <option value="3 cuotas">3 cuotas</option>
       <option value="5 cuotas">5 cuotas</option>
       <option value="Bonificado Por C.Play">Bonificado por C.Play</option>
       <option value="Bonificación Comercial">Bonificación Comercial</option>
+      <option value="Bonificación Promocion">Bonificación Promoción</option>
     </select>
 
-    <!-- TRÁMITE (solo si eligen bonificado falla técnica) -->
-    <div id="tramiteBox" style="display:none;">
+    <!-- TRÁMITE (solo si bonificado falla técnica) -->
+    <div id="tramiteBox_alta" style="display:none;">
       <label>N° Trámite (6 dígitos):</label>
-      <input id="tramiteFT" type="text" placeholder="000000" maxlength="6" />
+      <input id="tramiteFT_alta" type="text" placeholder="000000" maxlength="6" />
     </div>
 
     <!-- IDENTIFICADOR -->
     <label>Identificador del servicio:</label>
-    <input id="identificador" type="text" placeholder="ID del servicio" />
+    <input id="identificador_alta" type="text" placeholder="ID del servicio" />
 
     <!-- VELOCIDAD -->
     <label>Velocidad:</label>
-    <select id="velocidad">
+    <select id="velocidad_alta">
       <option value="">Seleccione...</option>
-      <option>300 MB</option>
-      <option>800 MB</option>
       <option>1000 MB</option>
+      <option>800 MB</option>
+      <option>300 MB</option>
+      <option>200 MB Combo</option>
       <option>Pbu</option>
       <option>Por tiempo</option>
       <option>3 MB</option>
@@ -76,9 +86,13 @@
       <option>12 MB</option>
     </select>
 
+    <!-- OBSERVACIÓN -->
+    <label>Observación:</label>
+    <textarea id="observacion_alta" placeholder="Observaciones adicionales"></textarea>
+
     <!-- MONITOREA CÁMARAS -->
     <label>¿Monitorea cámaras de seguridad?</label>
-    <select id="monitoreaCam">
+    <select id="monitoreaCam_alta">
       <option value="">Seleccione...</option>
       <option>Si</option>
       <option>No</option>
@@ -87,7 +101,7 @@
 
     <!-- RED INTERNA -->
     <label>¿Tiene red interna o repetidores?</label>
-    <select id="redInterna">
+    <select id="redInterna_alta">
       <option value="">Seleccione...</option>
       <option>Si</option>
       <option>No</option>
@@ -95,7 +109,7 @@
 
     <!-- LLEGA EN FORMA -->
     <label>El servicio llega en forma:</label>
-    <select id="formaLlegada">
+    <select id="formaLlegada_alta">
       <option value="">Seleccione...</option>
       <option>Aéreo</option>
       <option>Terrestre</option>
@@ -103,7 +117,7 @@
 
     <!-- ALARMA -->
     <label>En caso de alarma debe avisar a proveedor:</label>
-    <select id="alarma">
+    <select id="alarma_alta">
       <option value="">Seleccione...</option>
       <option>No tiene</option>
       <option>Notifica al proveedor</option>
@@ -111,40 +125,45 @@
 
     <!-- RED INTERNA MODIFICADA -->
     <label>¿Tiene modificada su red interna?</label>
-    <select id="modRedInterna">
+    <select id="modRedInterna_alta">
       <option value="">Seleccione...</option>
       <option>No</option>
       <option>Si</option>
     </select>
 
-    <p id="warningRed" style="color: orange; font-weight: bold; display:none;">
+    <p id="warningRed_alta" style="color: orange; font-weight: bold; display:none;">
       ⚠ Atención: Debemos copiar configuración en el trámite.
     </p>
 
+    <!-- LINEA 24HS -->
+    <label>La línea se habilita en 24 hs después del servicio:</label>
+    <select id="linea24_alta">
+      <option value="">Seleccione...</option>
+      <option>Sin Linea</option>
+      <option>Notificado</option>
+    </select>
+
     <!-- PLANOS ACOMETIDA -->
     <label>¿Se envió plano de acometida?</label>
-    <select id="planoAcometida">
+    <select id="planoAcometida_alta">
       <option value="No" selected>No</option>
       <option value="Bot">Enviado vía BOT</option>
       <option value="Mail">Enviado vía Mail</option>
     </select>
 
-    <!-- ALERTA -->
-    <p id="alertaPlano" style="color:red; display:none; font-weight:bold;">
+    <p id="alertaPlano_alta" style="color:red; display:none; font-weight:bold;">
       ⚠ Debemos enviar el plano de acometida antes de continuar.
     </p>
 
     <!-- BOTONES -->
     <div class="buttons">
-      <button id="generarBtn_cambioTec" type="button">Generar texto</button>
-      <button id="copiarBtn_cambioTec" type="button" disabled>Copiar texto</button>
+      <button id="generarBtn_altaServicio" type="button">Generar texto</button>
+      <button id="copiarBtn_altaServicio" type="button" disabled>Copiar texto</button>
       <a href="index.html" class="volver">← Volver al Hub</a>
     </div>
 
     <!-- RESULTADO -->
-    <pre id="resultado_cambioTec" class="resultado"></pre>
-
+    <pre id="resultado_altaServicio" class="resultado"></pre>
   </div>
 </body>
 </html>
->
