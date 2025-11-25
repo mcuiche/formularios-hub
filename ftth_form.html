@@ -10,48 +10,47 @@
 <body>
   <div class="container">
     <button id="toggleTheme" class="theme-btn">🌙 / ☀️</button>
-    <h1> Reclamo FTTH</h1>
+    <h1>📡 Reclamo FTTH</h1>
     <p>Completá los datos solicitados y generá el texto para ingresar en el sistema.</p>
-
-    <!--  Bloque de dirección reordenado -->
+    
+    <!-- Bloque de dirección -->
     <div class="direccion-check">
-      <h3>Verificar Direccion</h3>
+      <h3>Verificar Dirección</h3>
       <p>Debe corroborarse la dirección en el sistema. Si está mal, corregirla.<br>
       Si este campo no está tildado, no se puede generar el texto.</p>
-
       <label class="check-label">
+        <input type="checkbox" id="direccionCheck_ftth">
         Confirmo que la dirección fue verificada
-        <input type="checkbox" id="direccionCheck">
       </label>
     </div>
-
+    
     <form id="ftthForm">
-      <label for="ubicacion">Ubicación / Coordenadas:</label>
-      <input type="text" id="ubicacion" placeholder="Pegar ubicación de Google (solo si aplica)">
+      <label for="ubicacion_ftth">Ubicación / Coordenadas:</label>
+      <input type="text" id="ubicacion_ftth" placeholder="Pegar ubicación de Google (solo si aplica)">
       <p class="hint">Usar solo si el cliente no tiene una dirección clara (zonas rurales o remotas).</p>
-
-      <label for="contacto">Contacto (nombre y número):</label>
-      <input type="text" id="contacto" placeholder="Ej: Juan Pérez - 2944 123456">
-
-      <label for="comentario">Comentario:</label>
-      <textarea id="comentario" placeholder="Motivo de llamado / detalle de tareas realizadas / solución"></textarea>
-
-      <label for="potencia">Potencia ONT:</label>
-      <input type="text" id="potencia" placeholder="Ej: -22 dBm">
-
-      <label for="desconexiones">Desconexiones (últimos 7 días):</label>
-      <input type="text" id="desconexiones" placeholder="Ej: 3">
-
+      
+      <label for="contacto_ftth">Contacto (nombre y número):</label>
+      <input type="text" id="contacto_ftth" placeholder="Ej: Juan Pérez - 2944 123456">
+      
+      <label for="comentario_ftth">Comentario:</label>
+      <textarea id="comentario_ftth" placeholder="Motivo de llamado / detalle de tareas realizadas / solución"></textarea>
+      
+      <label for="potencia_ftth">Potencia ONT:</label>
+      <input type="text" id="potencia_ftth" placeholder="Ej: -22 dBm">
+      
+      <label for="desconexiones_ftth">Desconexiones (últimos 7 días):</label>
+      <input type="text" id="desconexiones_ftth" placeholder="Ej: 3">
+      
       <div class="buttons">
-        <button type="button" id="generarBtn">Generar texto</button>
-        <button type="button" id="copiarBtn" disabled>Copiar texto</button>
+        <button type="button" id="generarBtn_ftth">Generar texto</button>
+        <button type="button" id="copiarBtn_ftth" disabled>Copiar texto</button>
         <a href="index.html" class="volver">← Volver al Hub</a>
       </div>
     </form>
-
-    <div id="resultadoContainer" style="display:none;">
+    
+    <div id="resultadoContainer_ftth" style="display:none;">
       <h2>Texto generado:</h2>
-      <pre id="resultado"></pre>
+      <pre id="resultado_ftth"></pre>
     </div>
   </div>
 </body>

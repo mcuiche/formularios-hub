@@ -7,100 +7,92 @@
   <link rel="stylesheet" href="style.css">
   <script defer src="script.js"></script>
 </head>
-
 <body>
   <button id="toggleTheme" class="theme-btn">🌙 / ☀️</button>
   <div class="container">
-
-    <h1> Reclamo Wireless</h1>
+    <h1>📡 Reclamo Wireless</h1>
     <p>Completá los datos solicitados y generá el texto para ingresar en el sistema.</p>
-
-    <!-- ✔ Dirección -->
+    
+    <!-- Dirección -->
     <div class="direccion-check">
       <h3>Dirección verificada</h3>
       <p>Debe corroborarse en el sistema. Si está mal, corregirla.<br>Si este check no está tildado, no se puede generar el texto.</p>
-
       <label class="check-label">
         <input type="checkbox" id="direccionCheck_wireless">
-         Confirmo que la dirección fue verificada
+        Confirmo que la dirección fue verificada
       </label>
     </div>
-
+    
     <form id="wirelessForm">
-      
       <!-- Ubicación -->
       <label for="ubicacion_wireless">Ubicación / Coordenadas:</label>
       <input type="text" id="ubicacion_wireless" placeholder="Pegar ubicación de Google (solo si aplica)">
       <p class="hint">Usar solo si el cliente no tiene una dirección clara (zonas rurales o remotas).</p>
-
+      
       <!-- Contacto -->
       <label for="contacto_wireless">Contacto (nombre y número):</label>
       <input type="text" id="contacto_wireless" placeholder="Ej: Juan Pérez - 2944 123456">
-
+      
       <!-- Comentario -->
       <label for="comentario_wireless">Comentario:</label>
       <textarea id="comentario_wireless" placeholder="Motivo de llamado / detalle de tareas realizadas / solución"></textarea>
-
+      
       <!-- Acceso Router -->
-      <div class="form-input">
-        <label>Acceso Router:</label>
-        <div class="radio-group">
-          <label>
-            <input type="radio" name="acceso_router" value="si">
-            Sí
-          </label>
-          <label>
-            <input type="radio" name="acceso_router" value="no">
-            No
-          </label>
-        </div>
-
+      <label>Acceso Router:</label>
+      <div class="radio-group">
+        <label>
+          <input type="radio" name="acceso_router_wireless" value="Sí">
+          Sí
+        </label>
+        <label>
+          <input type="radio" name="acceso_router_wireless" value="No">
+          No
+        </label>
+      </div>
+      
       <!-- Acceso VoIP -->
       <label>Acceso VoIP:</label>
       <div class="radio-group">
-        <label><input type="radio" name="acceso_voip" value="Sí"> Sí</label>
-        <label><input type="radio" name="acceso_voip" value="No"> No</label>
+        <label><input type="radio" name="acceso_voip_wireless" value="Sí"> Sí</label>
+        <label><input type="radio" name="acceso_voip_wireless" value="No"> No</label>
       </div>
-
+      
       <!-- SIP Registro -->
       <label>SIP Registro:</label>
       <div class="radio-group">
-        <label><input type="radio" name="sip_registro" value="Sí"> Sí</label>
-        <label><input type="radio" name="sip_registro" value="No"> No</label>
+        <label><input type="radio" name="sip_registro_wireless" value="Sí"> Sí</label>
+        <label><input type="radio" name="sip_registro_wireless" value="No"> No</label>
       </div>
-
+      
       <!-- Tipo de señal -->
-      <label for="tipo_senal">Tipo de señal:</label>
-      <select id="tipo_senal">
+      <label for="tipo_senal_wireless">Tipo de señal:</label>
+      <select id="tipo_senal_wireless">
         <option value="">Seleccionar...</option>
         <option value="ccq">Señal con CCQ</option>
         <option value="cadenas">Señal con Cadenas</option>
       </select>
-
+      
       <!-- Bloque CCQ -->
-      <div id="ccq_block" style="display:none;">
+      <div id="ccq_block_wireless" style="display:none;">
         <label>Señal (dBm):</label>
-        <input type="text" id="ccq_senal" placeholder="Ej: -62">
-
+        <input type="text" id="ccq_senal_wireless" placeholder="Ej: -62">
         <label>CCQ (%):</label>
-        <input type="text" id="ccq_valor" placeholder="Ej: 98">
+        <input type="text" id="ccq_valor_wireless" placeholder="Ej: 98">
       </div>
-
+      
       <!-- Bloque Cadenas -->
-      <div id="cadenas_block" style="display:none;">
+      <div id="cadenas_block_wireless" style="display:none;">
         <h3>Señal Cadenas</h3>
-
         <label>Señal Antena (ej: -62 (-63 / -61) Δ2):</label>
-        <input type="text" id="cadena_antena" placeholder="Completar medición exacta">
-
+        <input type="text" id="cadena_antena_wireless" placeholder="Completar medición exacta">
         <label>Señal AP (ej: -65 (-66 / -64) Δ2):</label>
-        <input type="text" id="cadena_ap" placeholder="Completar medición exacta">
+        <input type="text" id="cadena_ap_wireless" placeholder="Completar medición exacta">
       </div>
-
+      
       <!-- Desconexiones -->
       <label for="desconexiones_wireless">Desconexiones (últimos 7 días):</label>
       <input type="text" id="desconexiones_wireless" placeholder="Ej: 3">
-
+      
       <!-- Botones -->
       <div class="buttons">
         <button type="button" id="generarBtn_wireless">Generar texto</button>
@@ -108,12 +100,11 @@
         <a href="index.html" class="volver">← Volver al Hub</a>
       </div>
     </form>
-
+    
     <div id="resultadoContainer_wireless" style="display:none;">
       <h2>Texto generado:</h2>
       <pre id="resultado_wireless"></pre>
     </div>
-
   </div>
 </body>
 </html>

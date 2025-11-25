@@ -7,14 +7,14 @@
   <link rel="stylesheet" href="style.css" />
   <script src="script.js" defer></script>
 </head>
-
 <body>
   <div class="container">
-    <h2>Cambio de Tecnología</h2>
-
+    <button id="toggleTheme" class="theme-btn">🌙 / ☀️</button>
+    <h2>🔄 Cambio de Tecnología</h2>
+    
     <!-- SERVICIOS A CAMBIAR -->
     <label>Servicio a Cambiar:</label>
-    <select id="servicioCambiar">
+    <select id="servicioCambiar_cambioTec">
       <option value="">Seleccione...</option>
       <option>Ftth Solo Internet</option>
       <option>Ftth Internet + C.Play</option>
@@ -22,26 +22,26 @@
       <option>Ftth Internet + C.Play + Sip</option>
       <option>Ftth Solo Linea</option>
     </select>
-
+    
     <!-- CONTACTO -->
     <label>Contacto (Nombre + Teléfono):</label>
-    <input id="contacto" type="text" placeholder="Ej: Juan Pérez - 2972xxxxxx" />
-
+    <input id="contacto_cambioTec" type="text" placeholder="Ej: Juan Pérez - 2972xxxxxx" />
+    
     <!-- DIRECCIÓN -->
     <label>Dirección del Servicio:</label>
-    <input id="direccion" type="text" placeholder="Calle 123, Barrio XXX" />
-
+    <input id="direccion_cambioTec" type="text" placeholder="Calle 123, Barrio XXX" />
+    
     <!-- Ubicación -->
-    <label for="ubicacion_cambio">Ubicación / Coordenadas:</label>
-    <input id="ubicacion_cambio" type="text" placeholder="Solo usar si no hay dirección clara">
-
+    <label for="ubicacion_cambioTec">Ubicación / Coordenadas:</label>
+    <input id="ubicacion_cambioTec" type="text" placeholder="Solo usar si no hay dirección clara">
+    
     <!-- CATASTRO -->
     <label>Catastro:</label>
-    <input id="catastro" type="text" placeholder="Número de catastro" />
-
+    <input id="catastro_cambioTec" type="text" placeholder="Número de catastro" />
+    
     <!-- COSTO INSTALACIÓN -->
     <label>Costo de Instalación:</label>
-    <select id="costoInstalacion">
+    <select id="costoInstalacion_cambioTec">
       <option value="">Seleccione...</option>
       <option value="Bonificado Falla Técnica">Bonificado Falla Técnica (Trámite)</option>
       <option value="1 cuota">1 cuota</option>
@@ -50,20 +50,20 @@
       <option value="Bonificado Por C.Play">Bonificado por C.Play</option>
       <option value="Bonificación Comercial">Bonificación Comercial</option>
     </select>
-
+    
     <!-- TRÁMITE (solo si eligen bonificado falla técnica) -->
-    <div id="tramiteBox" style="display:none;">
+    <div id="tramiteBox_cambioTec" style="display:none;">
       <label>N° Trámite (6 dígitos):</label>
-      <input id="tramiteFT" type="text" placeholder="000000" maxlength="6" />
+      <input id="tramiteFT_cambioTec" type="text" placeholder="000000" maxlength="6" />
     </div>
-
+    
     <!-- IDENTIFICADOR -->
     <label>Identificador del servicio:</label>
-    <input id="identificador" type="text" placeholder="ID del servicio" />
-
+    <input id="identificador_cambioTec" type="text" placeholder="ID del servicio" />
+    
     <!-- VELOCIDAD -->
     <label>Velocidad:</label>
-    <select id="velocidad">
+    <select id="velocidad_cambioTec">
       <option value="">Seleccione...</option>
       <option>300 MB</option>
       <option>800 MB</option>
@@ -75,76 +75,69 @@
       <option>8 MB</option>
       <option>12 MB</option>
     </select>
-
+    
     <!-- MONITOREA CÁMARAS -->
     <label>¿Monitorea cámaras de seguridad?</label>
-    <select id="monitoreaCam">
+    <select id="monitoreaCam_cambioTec">
       <option value="">Seleccione...</option>
       <option>Si</option>
       <option>No</option>
       <option>Seguridad</option>
     </select>
-
+    
     <!-- RED INTERNA -->
     <label>¿Tiene red interna o repetidores?</label>
-    <select id="redInterna">
+    <select id="redInterna_cambioTec">
       <option value="">Seleccione...</option>
       <option>Si</option>
       <option>No</option>
     </select>
-
+    
     <!-- LLEGA EN FORMA -->
     <label>El servicio llega en forma:</label>
-    <select id="formaLlegada">
+    <select id="formaLlegada_cambioTec">
       <option value="">Seleccione...</option>
       <option>Aéreo</option>
       <option>Terrestre</option>
     </select>
-
+    
     <!-- ALARMA -->
     <label>En caso de alarma debe avisar a proveedor:</label>
-    <select id="alarma">
+    <select id="alarma_cambioTec">
       <option value="">Seleccione...</option>
       <option>No tiene</option>
       <option>Notifica al proveedor</option>
     </select>
-
+    
     <!-- RED INTERNA MODIFICADA -->
     <label>¿Tiene modificada su red interna?</label>
-    <select id="modRedInterna">
+    <select id="modRedInterna_cambioTec">
       <option value="">Seleccione...</option>
       <option>No</option>
       <option>Si</option>
     </select>
-
-    <p id="warningRed" style="color: orange; font-weight: bold; display:none;">
+    <p id="warningRed_cambioTec" style="color: orange; font-weight: bold; display:none;">
       ⚠ Atención: Debemos copiar configuración en el trámite.
     </p>
-
+    
     <!-- PLANOS ACOMETIDA -->
     <label>¿Se envió plano de acometida?</label>
-    <select id="planoAcometida">
+    <select id="planoAcometida_cambioTec">
       <option value="No" selected>No</option>
       <option value="Bot">Enviado vía BOT</option>
       <option value="Mail">Enviado vía Mail</option>
     </select>
-
-    <!-- ALERTA -->
-    <p id="alertaPlano" style="color:red; display:none; font-weight:bold;">
-      ⚠ Debemos enviar el plano de acometida antes de continuar.
-    </p>
-
+    
     <!-- BOTONES -->
     <div class="buttons">
       <button id="generarBtn_cambioTec" type="button">Generar texto</button>
       <button id="copiarBtn_cambioTec" type="button" disabled>Copiar texto</button>
       <a href="index.html" class="volver">← Volver al Hub</a>
     </div>
-
+    
     <!-- RESULTADO -->
+    <h2>Texto generado:</h2>
     <pre id="resultado_cambioTec" class="resultado"></pre>
-
   </div>
 </body>
 </html>
->

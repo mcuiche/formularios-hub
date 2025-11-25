@@ -9,11 +9,12 @@
 </head>
 <body>
   <div class="container">
-    <h2>Alta de Servicio</h2>
-
+    <button id="toggleTheme" class="theme-btn">🌙 / ☀️</button>
+    <h2>✨ Alta de Servicio</h2>
+    
     <!-- SERVICIO SOLICITADO -->
     <label>Servicio Solicitado:</label>
-    <select id="servicioAlta">
+    <select id="servicioAlta_alta">
       <option value="">Seleccione...</option>
       <option>Ftth Solo Internet</option>
       <option>Ftth Internet + C.Play</option>
@@ -23,34 +24,33 @@
       <option>Cotesma Play</option>
       <option>Ftth Solo Linea</option>
     </select>
-
-    <p id="warningZapala" style="color:orange; font-weight:bold; display:none;">
+    <p id="warningZapala_alta" style="color:orange; font-weight:bold; display:none;">
       ⚠ Atención: "Combo 200MB + C.Play" sólo es válido para Zapala.
     </p>
-
+    
     <!-- CLIENTE / DNI -->
     <label>Cliente / DNI:</label>
-    <input id="clienteDni" type="text" placeholder="Nombre - DNI" />
-
+    <input id="clienteDni_alta" type="text" placeholder="Nombre - DNI" />
+    
     <!-- CONTACTO -->
     <label>Contacto (Nombre + Teléfono):</label>
     <input id="contacto_alta" type="text" placeholder="Ej: Juan Pérez - 2972xxxxxx" />
-
+    
     <!-- DIRECCIÓN -->
     <label>Dirección del servicio:</label>
     <input id="direccion_alta" type="text" placeholder="Calle 123, Barrio XXX" />
-
+    
     <!-- UBICACIÓN / COORDENADAS -->
     <label>Ubicación / Coordenadas (solo si no hay dirección clara):</label>
     <input id="ubicacion_alta" type="text" placeholder="Pegar ubicación de Google Maps" />
-
+    
     <!-- CATASTRO -->
     <label>Catastro:</label>
     <input id="catastro_alta" type="text" placeholder="Número de catastro" />
-
+    
     <!-- COSTO INSTALACIÓN -->
     <label>Costo de Instalación:</label>
-    <select id="alta_costoInstalacion">
+    <select id="alta_costoInstalacion_alta">
       <option value="">Seleccione...</option>
       <option value="1 cuota">1 cuota</option>
       <option value="3 cuotas">3 cuotas</option>
@@ -59,17 +59,11 @@
       <option value="Bonificación Comercial">Bonificación Comercial</option>
       <option value="Bonificación Promocion">Bonificación Promoción</option>
     </select>
-
-    <!-- TRÁMITE (solo si bonificado falla técnica) -->
-    <div id="tramiteBox_alta" style="display:none;">
-      <label>N° Trámite (6 dígitos):</label>
-      <input id="tramiteFT_alta" type="text" placeholder="000000" maxlength="6" />
-    </div>
-
+    
     <!-- IDENTIFICADOR -->
     <label>Identificador del servicio:</label>
     <input id="identificador_alta" type="text" placeholder="ID del servicio" />
-
+    
     <!-- VELOCIDAD -->
     <label>Velocidad:</label>
     <select id="velocidad_alta">
@@ -85,11 +79,11 @@
       <option>8 MB</option>
       <option>12 MB</option>
     </select>
-
+    
     <!-- OBSERVACIÓN -->
     <label>Observación:</label>
     <textarea id="observacion_alta" placeholder="Observaciones adicionales"></textarea>
-
+    
     <!-- MONITOREA CÁMARAS -->
     <label>¿Monitorea cámaras de seguridad?</label>
     <select id="monitoreaCam_alta">
@@ -98,7 +92,7 @@
       <option>No</option>
       <option>Seguridad</option>
     </select>
-
+    
     <!-- RED INTERNA -->
     <label>¿Tiene red interna o repetidores?</label>
     <select id="redInterna_alta">
@@ -106,7 +100,7 @@
       <option>Si</option>
       <option>No</option>
     </select>
-
+    
     <!-- LLEGA EN FORMA -->
     <label>El servicio llega en forma:</label>
     <select id="formaLlegada_alta">
@@ -114,7 +108,7 @@
       <option>Aéreo</option>
       <option>Terrestre</option>
     </select>
-
+    
     <!-- ALARMA -->
     <label>En caso de alarma debe avisar a proveedor:</label>
     <select id="alarma_alta">
@@ -122,7 +116,7 @@
       <option>No tiene</option>
       <option>Notifica al proveedor</option>
     </select>
-
+    
     <!-- RED INTERNA MODIFICADA -->
     <label>¿Tiene modificada su red interna?</label>
     <select id="modRedInterna_alta">
@@ -130,11 +124,10 @@
       <option>No</option>
       <option>Si</option>
     </select>
-
     <p id="warningRed_alta" style="color: orange; font-weight: bold; display:none;">
       ⚠ Atención: Debemos copiar configuración en el trámite.
     </p>
-
+    
     <!-- LINEA 24HS -->
     <label>La línea se habilita en 24 hs después del servicio:</label>
     <select id="linea24_alta">
@@ -142,7 +135,7 @@
       <option>Sin Linea</option>
       <option>Notificado</option>
     </select>
-
+    
     <!-- PLANOS ACOMETIDA -->
     <label>¿Se envió plano de acometida?</label>
     <select id="planoAcometida_alta">
@@ -150,20 +143,20 @@
       <option value="Bot">Enviado vía BOT</option>
       <option value="Mail">Enviado vía Mail</option>
     </select>
-
     <p id="alertaPlano_alta" style="color:red; display:none; font-weight:bold;">
       ⚠ Debemos enviar el plano de acometida antes de continuar.
     </p>
-
+    
     <!-- BOTONES -->
     <div class="buttons">
-      <button id="generarBtn_altaServicio" type="button">Generar texto</button>
-      <button id="copiarBtn_altaServicio" type="button" disabled>Copiar texto</button>
+      <button id="generarBtn_alta" type="button">Generar texto</button>
+      <button id="copiarBtn_alta" type="button" disabled>Copiar texto</button>
       <a href="index.html" class="volver">← Volver al Hub</a>
     </div>
-
+    
     <!-- RESULTADO -->
-    <pre id="resultado_altaServicio" class="resultado"></pre>
+    <h2>Texto generado:</h2>
+    <pre id="resultado_alta" class="resultado"></pre>
   </div>
 </body>
 </html>

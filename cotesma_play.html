@@ -4,78 +4,72 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Formulario Cotesma Play</title>
-
   <link rel="stylesheet" href="style.css">
   <script defer src="script.js"></script>
 </head>
-
 <body>
-
   <div class="container">
     <button id="toggleTheme" class="theme-btn">🌙 / ☀️</button>
-    <h1>Reclamo – Cotesma Play</h1>
+    <h1>📺 Reclamo – Cotesma Play</h1>
     <p>Completá los datos solicitados y generá el texto para ingresar en el sistema.</p>
-
-    <!-- Dirección -->
-     <div class="direccion-check">
-         <h3>Dirección verificada</h3>
-         <p>Debe corroborarse en el sistema. Si está mal, corregirla.<br>Si este check no está tildado, no se puede generar el texto.</p>
-
-         <label class="check-label">
-             <input type="checkbox" id="direccionCheck_cplay">
-              Confirmo que la dirección fue verificada 
-         </label>
-     </div>
     
-
+    <!-- Dirección -->
+    <div class="direccion-check">
+      <h3>Dirección verificada</h3>
+      <p>Debe corroborarse en el sistema. Si está mal, corregirla.<br>Si este check no está tildado, no se puede generar el texto.</p>
+      <label class="check-label">
+        <input type="checkbox" id="direccionCheck_cplay">
+        Confirmo que la dirección fue verificada 
+      </label>
+    </div>
+    
     <!-- Ubicación -->
     <label>Ubicación / Coordenadas:
       <input type="text" id="ubicacion_cplay" placeholder="Solo si el cliente no tiene dirección clara">
     </label>
-
+    
     <!-- Contacto -->
     <label>Contacto:
       <input type="text" id="contacto_cplay" placeholder="Ej: Juan Pérez 2944411122">
     </label>
-
+    
     <!-- Comentario -->
     <label>Comentario:
       <textarea id="comentario_cplay" placeholder="Motivo / tareas realizadas / solución"></textarea>
     </label>
-
+    
     <!-- Equipo STB -->
     <label>Cantidad de equipos STB:
       <input type="number" id="equipos_cplay" min="0" placeholder="Ej: 1, 2, 3...">
     </label>
-
+    
     <!-- Versión APP -->
     <label>Versión de la APP:
       <input type="text" id="version_app_cplay" placeholder="Ej: 1.4.2">
     </label>
-
+    
     <!-- Potencia ONT -->
     <label>Potencia ONT:
       <input type="text" id="potencia_ont_cplay" placeholder="Ej: -22 dBm">
     </label>
-
+    
     <!-- Desconexiones -->
     <label>Desconexiones en 7 días:
       <input type="number" id="desconexiones_cplay" min="0" placeholder="Cantidad">
     </label>
-
+    
     <!-- Botones -->
     <div class="buttons">
       <button type="button" id="generarBtn_cplay">Generar texto</button>
       <button type="button" id="copiarBtn_cplay" disabled>Copiar texto</button>
       <a href="index.html" class="volver">← Volver al Hub</a>
     </div>
-
+    
     <!-- Resultado -->
     <div id="resultadoContainer_cplay" class="resultado" style="display:none;">
+      <h2>Texto generado:</h2>
       <pre id="resultado_cplay"></pre>
     </div>
-
   </div>
-
 </body>
 </html>

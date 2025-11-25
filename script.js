@@ -1,535 +1,588 @@
+// ============================================
+// UTILIDADES GENERALES
+// ============================================
+
+/**
+ * Función reutilizable para copiar texto al portapapeles
+ * @param {string} resultadoId - ID del elemento que contiene el texto
+ * @param {HTMLElement} boton - Botón que se presionó
+ */
+function copiarAlPortapapeles(resultadoId, boton) {
+  const texto = document.getElementById(resultadoId).textContent;
+  navigator.clipboard.writeText(texto).then(() => {
+    const textoOriginal = boton.textContent;
+    boton.textContent = "¡Copiado!";
+    setTimeout(() => {
+      boton.textContent = textoOriginal;
+    }, 1200);
+  });
+}
+
+/**
+ * Obtiene el valor de un radio button seleccionado
+ * @param {string} nombre - Nombre del grupo de radio buttons
+ * @returns {string} - Valor seleccionado o "-"
+ */
+function obtenerRadioSeleccionado(nombre) {
+  const seleccionado = document.querySelector(`input[name='${nombre}']:checked`);
+  return seleccionado ? seleccionado.value : "-";
+}
+
+/**
+ * Obtiene el valor de un input, con valor por defecto si está vacío
+ * @param {string} id - ID del elemento
+ * @param {string} valorPorDefecto - Valor a devolver si está vacío
+ * @returns {string}
+ */
+function obtenerValor(id, valorPorDefecto = "") {
+  const elemento = document.getElementById(id);
+  return elemento ? elemento.value || valorPorDefecto : valorPorDefecto;
+}
+
+/**
+ * Muestra/oculta un elemento según condición
+ * @param {string} id - ID del elemento
+ * @param {boolean} mostrar - Si debe mostrarse o no
+ */
+function toggleElemento(id, mostrar) {
+  const elemento = document.getElementById(id);
+  if (elemento) {
+    elemento.style.display = mostrar ? "block" : "none";
+  }
+}
+
+// ============================================
+// INICIALIZACIÓN PRINCIPAL
+// ============================================
+
 document.addEventListener("DOMContentLoaded", () => {
+  inicializarTemaOscuro();
+  inicializarFormularios();
+});
 
-  /* -------------------- FTTH -------------------- */
-  const genFTTH = document.getElementById("generarBtn");
-  if (genFTTH) {
-    genFTTH.addEventListener("click", () => {
-      const check = document.getElementById("direccionCheck");
-      if (!check.checked) return alert("Debes confirmar la dirección.");
+// ============================================
+// TEMA OSCURO / CLARO
+// ============================================
 
-      const ubic = document.getElementById("ubicacion").value;
-      const cont = document.getElementById("contacto").value;
-      const com = document.getElementById("comentario").value;
-      const pot = document.getElementById("potencia").value;
-      const des = document.getElementById("desconexiones").value;
+function inicializarTemaOscuro() {
+  // Aplicar tema guardado
+  const temaGuardado = localStorage.getItem("theme");
+  if (temaGuardado === "dark") {
+    document.body.classList.add("dark");
+  }
 
-      const txt =
-`RECLAMO FTTH
+  // Botón para alternar tema
+  const botonTema = document.getElementById("toggleTheme");
+  if (botonTema) {
+    botonTema.addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+      const temaActual = document.body.classList.contains("dark") ? "dark" : "light";
+      localStorage.setItem("theme", temaActual);
+    });
+  }
+}
+
+// ============================================
+// INICIALIZACIÓN DE FORMULARIOS
+// ============================================
+
+function inicializarFormularios() {
+  // Reclamos técnicos
+  inicializarFTTH();
+  inicializarADSL();
+  inicializarWireless();
+  inicializarCotesmaPlay();
+  inicializarSIP();
+
+  // Comerciales
+  inicializarCambioDomicilio();
+  inicializarCambioTecnologia();
+  inicializarAltaServicio();
+}
+
+// ============================================
+// FTTH
+// ============================================
+
+function inicializarFTTH() {
+  const botonGenerar = document.getElementById("generarBtn_ftth");
+  const botonCopiar = document.getElementById("copiarBtn_ftth");
+
+  if (!botonGenerar) return;
+
+  botonGenerar.addEventListener("click", () => {
+    const direccionVerificada = document.getElementById("direccionCheck_ftth");
+    if (!direccionVerificada.checked) {
+      alert("Debes confirmar la dirección.");
+      return;
+    }
+
+    const ubicacion = obtenerValor("ubicacion_ftth");
+    const contacto = obtenerValor("contacto_ftth");
+    const comentario = obtenerValor("comentario_ftth");
+    const potencia = obtenerValor("potencia_ftth");
+    const desconexiones = obtenerValor("desconexiones_ftth");
+
+    const texto = `RECLAMO FTTH
 Dirección: Verificada
-${ubic ? `Ubicación: ${ubic}\n` : ""}Contacto: ${cont}
-Comentario: ${com}
-Potencia ONT: ${pot}
-Desconexiones (7 días): ${des}`;
+${ubicacion ? `Ubicación: ${ubicacion}\n` : ""}Contacto: ${contacto}
+Comentario: ${comentario}
+Potencia ONT: ${potencia}
+Desconexiones (7 días): ${desconexiones}`;
 
-      document.getElementById("resultado").textContent = txt;
-      document.getElementById("resultadoContainer").style.display = "block";
-      document.getElementById("copiarBtn").disabled = false;
+    document.getElementById("resultado_ftth").textContent = texto;
+    toggleElemento("resultadoContainer_ftth", true);
+    botonCopiar.disabled = false;
+  });
+
+  if (botonCopiar) {
+    botonCopiar.addEventListener("click", () => {
+      copiarAlPortapapeles("resultado_ftth", botonCopiar);
+    });
+  }
+}
+
+// ============================================
+// ADSL
+// ============================================
+
+function inicializarADSL() {
+  const botonGenerar = document.getElementById("generarBtn_adsl");
+  const botonCopiar = document.getElementById("copiarBtn_adsl");
+  const selectModem = document.getElementById("modem_adsl");
+
+  if (!botonGenerar) return;
+
+  // Mostrar campo "otro módem"
+  if (selectModem) {
+    selectModem.addEventListener("change", () => {
+      toggleElemento("otroModemContainer_adsl", selectModem.value === "otro");
     });
   }
 
+  botonGenerar.addEventListener("click", () => {
+    const direccionVerificada = document.getElementById("direccionCheck_adsl");
+    if (!direccionVerificada.checked) {
+      alert("Debes confirmar la dirección.");
+      return;
+    }
 
-  /* -------------------- ADSL -------------------- */
-  const genADSL = document.getElementById("generarBtn_adsl");
-  if (genADSL) {
-    genADSL.addEventListener("click", () => {
-      const check = document.getElementById("direccionCheck_adsl");
-      if (!check.checked) return alert("Debes confirmar la dirección.");
+    const ubicacion = obtenerValor("ubicacion_adsl");
+    const contacto = obtenerValor("contacto_adsl");
+    const comentario = obtenerValor("comentario_adsl");
+    
+    let modem = obtenerValor("modem_adsl");
+    if (modem === "otro") {
+      modem = obtenerValor("otroModem_adsl");
+    }
 
-      const ubic = document.getElementById("ubicacion_adsl").value;
-      const cont = document.getElementById("contacto_adsl").value;
-      const com = document.getElementById("comentario_adsl").value;
+    const rateUp = obtenerValor("rate_up_adsl");
+    const rateDown = obtenerValor("rate_down_adsl");
+    const snrUp = obtenerValor("snr_up_adsl");
+    const snrDown = obtenerValor("snr_down_adsl");
+    const attUp = obtenerValor("att_up_adsl");
+    const attDown = obtenerValor("att_down_adsl");
+    const desconexiones = obtenerValor("desconexiones_adsl");
 
-      let modem = document.getElementById("modem").value;
-      if (modem === "otro") modem = document.getElementById("otroModem").value;
-
-      const rateUp = document.getElementById("rate_up").value;
-      const rateDown = document.getElementById("rate_down").value;
-
-      const snrUp = document.getElementById("snr_up").value;
-      const snrDown = document.getElementById("snr_down").value;
-
-      const attUp = document.getElementById("att_up").value;
-      const attDown = document.getElementById("att_down").value;
-
-      const des = document.getElementById("desconexiones_adsl").value;
-
-      const txt =
-`RECLAMO ADSL
+    const texto = `RECLAMO ADSL
 Dirección: Verificada
-${ubic ? `Ubicación: ${ubic}\n` : ""}Contacto: ${cont}
-Comentario: ${com}
+${ubicacion ? `Ubicación: ${ubicacion}\n` : ""}Contacto: ${contacto}
+Comentario: ${comentario}
 Módem: ${modem}
 Rate: ${rateUp}/${rateDown} Kbps
 SNR: ${snrUp}/${snrDown} dBm
 Atenuación: ${attUp}/${attDown} dBm
-Desconexiones (7 días): ${des}`;
+Desconexiones (7 días): ${desconexiones}`;
 
-      document.getElementById("resultado_adsl").textContent = txt;
-      document.getElementById("resultadoContainer_adsl").style.display = "block";
-      document.getElementById("copiarBtn_adsl").disabled = false;
+    document.getElementById("resultado_adsl").textContent = texto;
+    toggleElemento("resultadoContainer_adsl", true);
+    botonCopiar.disabled = false;
+  });
+
+  if (botonCopiar) {
+    botonCopiar.addEventListener("click", () => {
+      copiarAlPortapapeles("resultado_adsl", botonCopiar);
     });
   }
+}
 
-  /* Mostrar campo "otro módem" */
-  const modemSelect = document.getElementById("modem");
-  if (modemSelect) {
-    modemSelect.addEventListener("change", () => {
-      document.getElementById("otroModemContainer").style.display =
-        modemSelect.value === "otro" ? "block" : "none";
-    });
-  }
+// ============================================
+// WIRELESS
+// ============================================
 
+function inicializarWireless() {
+  const botonGenerar = document.getElementById("generarBtn_wireless");
+  const botonCopiar = document.getElementById("copiarBtn_wireless");
+  const tipoSenal = document.getElementById("tipo_senal_wireless");
 
-  /* -------------------- WIRELESS -------------------- */
-  const tipoSenal = document.getElementById("tipo_senal");
+  if (!botonGenerar) return;
+
+  // Mostrar/ocultar bloques según tipo de señal
   if (tipoSenal) {
     tipoSenal.addEventListener("change", () => {
-      document.getElementById("ccq_block").style.display =
-        tipoSenal.value === "ccq" ? "block" : "none";
-
-      document.getElementById("cadenas_block").style.display =
-        tipoSenal.value === "cadenas" ? "block" : "none";
+      toggleElemento("ccq_block_wireless", tipoSenal.value === "ccq");
+      toggleElemento("cadenas_block_wireless", tipoSenal.value === "cadenas");
     });
   }
 
-  const genWireless = document.getElementById("generarBtn_wireless");
-  if (genWireless) {
-    genWireless.addEventListener("click", () => {
-      const check = document.getElementById("direccionCheck_wireless");
-      if (!check.checked) return alert("Debes confirmar la dirección.");
+  botonGenerar.addEventListener("click", () => {
+    const direccionVerificada = document.getElementById("direccionCheck_wireless");
+    if (!direccionVerificada.checked) {
+      alert("Debes confirmar la dirección.");
+      return;
+    }
 
-      const ubic = document.getElementById("ubicacion_wireless").value;
-      const cont = document.getElementById("contacto_wireless").value;
-      const com = document.getElementById("comentario_wireless").value;
+    const ubicacion = obtenerValor("ubicacion_wireless");
+    const contacto = obtenerValor("contacto_wireless");
+    const comentario = obtenerValor("comentario_wireless");
+    const accesoRouter = obtenerRadioSeleccionado("acceso_router_wireless");
+    const accesoVoip = obtenerRadioSeleccionado("acceso_voip_wireless");
+    const sipRegistro = obtenerRadioSeleccionado("sip_registro_wireless");
+    const tipoSenalValor = obtenerValor("tipo_senal_wireless");
+    const desconexiones = obtenerValor("desconexiones_wireless");
 
-      const accRouter = document.querySelector("input[name='acceso_router']:checked")?.value || "-";
-      const accVoip = document.querySelector("input[name='acceso_voip']:checked")?.value || "-";
-      const sip = document.querySelector("input[name='sip_registro']:checked")?.value || "-";
-
-      const tipo = document.getElementById("tipo_senal").value;
-
-      let senalTxt = "";
-
-      if (tipo === "ccq") {
-        const s = document.getElementById("ccq_senal").value;
-        const c = document.getElementById("ccq_valor").value;
-        senalTxt =
-`Señal CCQ:
-Señal: ${s} dBm
-CCQ: ${c}%`;
-      }
-
-      if (tipo === "cadenas") {
-        const ant = document.getElementById("cadena_antena").value;
-        const ap = document.getElementById("cadena_ap").value;
-
-        senalTxt =
-`Señal Cadenas:
-Antena: ${ant}
+    let textoSenal = "";
+    if (tipoSenalValor === "ccq") {
+      const senal = obtenerValor("ccq_senal_wireless");
+      const ccq = obtenerValor("ccq_valor_wireless");
+      textoSenal = `Señal CCQ:
+Señal: ${senal} dBm
+CCQ: ${ccq}%`;
+    } else if (tipoSenalValor === "cadenas") {
+      const antena = obtenerValor("cadena_antena_wireless");
+      const ap = obtenerValor("cadena_ap_wireless");
+      textoSenal = `Señal Cadenas:
+Antena: ${antena}
 AP: ${ap}`;
-      }
+    }
 
-      const des = document.getElementById("desconexiones_wireless").value;
-
-      const txt =
-`RECLAMO WIRELESS
+    const texto = `RECLAMO WIRELESS
 Dirección: Verificada
-${ubic ? `Ubicación: ${ubic}\n` : ""}Contacto: ${cont}
-Comentario: ${com}
-Acceso Router: ${accRouter}
-Acceso VoIP: ${accVoip}
-SIP Registro: ${sip}
+${ubicacion ? `Ubicación: ${ubicacion}\n` : ""}Contacto: ${contacto}
+Comentario: ${comentario}
+Acceso Router: ${accesoRouter}
+Acceso VoIP: ${accesoVoip}
+SIP Registro: ${sipRegistro}
+${textoSenal}
+Desconexiones (7 días): ${desconexiones}`;
 
-${senalTxt}
+    document.getElementById("resultado_wireless").textContent = texto;
+    toggleElemento("resultadoContainer_wireless", true);
+    botonCopiar.disabled = false;
+  });
 
-Desconexiones (7 días): ${des}`;
-
-      document.getElementById("resultado_wireless").textContent = txt;
-      document.getElementById("resultadoContainer_wireless").style.display = "block";
-      document.getElementById("copiarBtn_wireless").disabled = false;
+  if (botonCopiar) {
+    botonCopiar.addEventListener("click", () => {
+      copiarAlPortapapeles("resultado_wireless", botonCopiar);
     });
   }
-/* -------- BOTONES DE COPIAR (FTTH, ADSL, WIRELESS) -------- */
-const copiarFTTH = document.getElementById("copiarBtn");
-if (copiarFTTH) {
-  copiarFTTH.addEventListener("click", () => {
-    const txt = document.getElementById("resultado").textContent;
-    navigator.clipboard.writeText(txt);
-    copiarFTTH.textContent = "¡Copiado!";
-    setTimeout(() => copiarFTTH.textContent = "Copiar texto", 1200);
-  });
 }
 
-const copiarADSL = document.getElementById("copiarBtn_adsl");
-if (copiarADSL) {
-  copiarADSL.addEventListener("click", () => {
-    const txt = document.getElementById("resultado_adsl").textContent;
-    navigator.clipboard.writeText(txt);
-    copiarADSL.textContent = "¡Copiado!";
-    setTimeout(() => copiarADSL.textContent = "Copiar texto", 1200);
-  });
-}
+// ============================================
+// COTESMA PLAY
+// ============================================
 
-const copiarWireless = document.getElementById("copiarBtn_wireless");
-if (copiarWireless) {
-  copiarWireless.addEventListener("click", () => {
-    const txt = document.getElementById("resultado_wireless").textContent;
-    navigator.clipboard.writeText(txt);
-    copiarWireless.textContent = "¡Copiado!";
-    setTimeout(() => copiarWireless.textContent = "Copiar texto", 1200);
-  });
-}
-const copiarCPlay = document.getElementById("copiarBtn_cplay");
-if (copiarCPlay) {
-  copiarCPlay.addEventListener("click", () => {
-    const txt = document.getElementById("resultado_cplay").textContent;
-    navigator.clipboard.writeText(txt);
-    copiarCPlay.textContent = "¡Copiado!";
-    setTimeout(() => copiarCPlay.textContent = "Copiar texto", 1200);
-  });
-}
-});
+function inicializarCotesmaPlay() {
+  const botonGenerar = document.getElementById("generarBtn_cplay");
+  const botonCopiar = document.getElementById("copiarBtn_cplay");
 
-/* ---------------- TEMA OSCURO / CLARO ---------------- */
-document.addEventListener("DOMContentLoaded", () => {
+  if (!botonGenerar) return;
 
-  // Aplicar tema guardado
-  const saved = localStorage.getItem("theme");
-  if (saved === "dark") {
-    document.body.classList.add("dark");
-  }
+  botonGenerar.addEventListener("click", () => {
+    const direccionVerificada = document.getElementById("direccionCheck_cplay");
+    if (!direccionVerificada.checked) {
+      alert("Debes confirmar la dirección.");
+      return;
+    }
 
-  // Botón para alternar
-  const btn = document.getElementById("toggleTheme");
-  if (btn) {
-    btn.addEventListener("click", () => {
-      document.body.classList.toggle("dark");
-      localStorage.setItem("theme",
-        document.body.classList.contains("dark") ? "dark" : "light"
-      );
-    });
-  }
-});
+    const ubicacion = obtenerValor("ubicacion_cplay");
+    const contacto = obtenerValor("contacto_cplay");
+    const comentario = obtenerValor("comentario_cplay");
+    const equiposSTB = obtenerValor("equipos_cplay");
+    const versionApp = obtenerValor("version_app_cplay");
+    const potenciaONT = obtenerValor("potencia_ont_cplay");
+    const desconexiones = obtenerValor("desconexiones_cplay");
 
-  /* -------------------- COTESMA PLAY -------------------- */
-  const genCP = document.getElementById("generarBtn_cplay");
-  if (genCP) {
-    genCP.addEventListener("click", () => {
-      const check = document.getElementById("direccionCheck_cplay");
-      if (!check.checked) return alert("Debes confirmar la dirección.");
-
-      const ubic = document.getElementById("ubicacion_cplay").value;
-      const cont = document.getElementById("contacto_cplay").value;
-      const com = document.getElementById("comentario_cplay").value;
-
-      const stb = document.getElementById("equipos_cplay").value;
-      const app = document.getElementById("version_app_cplay").value;
-      const ont = document.getElementById("potencia_ont_cplay").value;
-      const des = document.getElementById("desconexiones_cplay").value;
-
-      const txt =
-`RECLAMO COTESMA PLAY
+    const texto = `RECLAMO COTESMA PLAY
 Dirección: Verificada
-${ubic ? `Ubicación: ${ubic}\n` : ""}Contacto: ${cont}
-Comentario: ${com}
+${ubicacion ? `Ubicación: ${ubicacion}\n` : ""}Contacto: ${contacto}
+Comentario: ${comentario}
+Equipos STB: ${equiposSTB}
+Versión APP: ${versionApp}
+Potencia ONT: ${potenciaONT}
+Desconexiones (7 días): ${desconexiones}`;
 
-Equipos STB: ${stb}
-Versión APP: ${app}
-Potencia ONT: ${ont}
-Desconexiones (7 días): ${des}`;
+    document.getElementById("resultado_cplay").textContent = texto;
+    toggleElemento("resultadoContainer_cplay", true);
+    botonCopiar.disabled = false;
+  });
 
-      document.getElementById("resultado_cplay").textContent = txt;
-      document.getElementById("resultadoContainer_cplay").style.display = "block";
-      document.getElementById("copiarBtn_cplay").disabled = false;
+  if (botonCopiar) {
+    botonCopiar.addEventListener("click", () => {
+      copiarAlPortapapeles("resultado_cplay", botonCopiar);
     });
   }
+}
 
-  /* -------- GENERAR TEXTO - SIP (Formato igual al resto) -------- */
-const genSIP = document.getElementById("generarBtn_sip");
-if (genSIP) {
-  genSIP.addEventListener("click", () => {
-    const direccionOk = document.getElementById("direccionOk").checked;
-    if (!direccionOk) {
+// ============================================
+// SIP
+// ============================================
+
+function inicializarSIP() {
+  const botonGenerar = document.getElementById("generarBtn_sip");
+  const botonCopiar = document.getElementById("copiarBtn_sip");
+
+  if (!botonGenerar) return;
+
+  botonGenerar.addEventListener("click", () => {
+    const direccionVerificada = document.getElementById("direccionCheck_sip");
+    if (!direccionVerificada.checked) {
       alert("Debe verificar la dirección para generar el texto.");
       return;
     }
 
-    const ubicacion = document.getElementById("ubicacion").value || "No aplica";
-    const contacto = document.getElementById("contacto").value || "No indicado";
-    const comentario = document.getElementById("comentario").value || "Sin detalles";
-    const editor = document.querySelector("input[name='editor']:checked")?.value || "No indicado";
-    const registroOnt = document.querySelector("input[name='registroOnt']:checked")?.value || "No indicado";
-    const usuarioSip = document.getElementById("usuarioSip").value || "No indicado";
-    const potenciaOnt = document.getElementById("potenciaOnt").value || "No indicado";
-    const desconexiones = document.getElementById("desconexiones").value || "No indicado";
+    const ubicacion = obtenerValor("ubicacion_sip", "No aplica");
+    const contacto = obtenerValor("contacto_sip", "No indicado");
+    const comentario = obtenerValor("comentario_sip", "Sin detalles");
+    const registraEditor = obtenerRadioSeleccionado("editor_sip") || "No indicado";
+    const registroOnt = obtenerRadioSeleccionado("registroOnt_sip") || "No indicado";
+    const usuarioSip = obtenerValor("usuarioSip_sip", "No indicado");
+    const potenciaOnt = obtenerValor("potenciaOnt_sip", "No indicado");
+    const desconexiones = obtenerValor("desconexiones_sip", "No indicado");
 
-    const texto = 
-`Dirección verificada: SI
+    const texto = `Dirección verificada: SI
 Ubicación/Coordenadas: ${ubicacion}
 Contacto: ${contacto}
-
 Comentario:
 ${comentario}
-
-Registra Editor: ${editor}
+Registra Editor: ${registraEditor}
 Registro ONT: ${registroOnt}
 Usuario SIP: ${usuarioSip}
 Potencia ONT: ${potenciaOnt}
-Desconexiones en 7 días: ${desconexiones}
-`;
+Desconexiones en 7 días: ${desconexiones}`;
 
     document.getElementById("resultado_sip").textContent = texto;
-    document.getElementById("copiarBtn_sip").disabled = false;
+    botonCopiar.disabled = false;
   });
+
+  if (botonCopiar) {
+    botonCopiar.addEventListener("click", () => {
+      copiarAlPortapapeles("resultado_sip", botonCopiar);
+    });
+  }
 }
 
-/* -------- COPIAR TEXTO SIP -------- */
-const copiarSIP = document.getElementById("copiarBtn_sip");
-if (copiarSIP) {
-  copiarSIP.addEventListener("click", () => {
-    const txt = document.getElementById("resultado_sip").textContent;
-    navigator.clipboard.writeText(txt);
-    copiarSIP.textContent = "¡Copiado!";
-    setTimeout(() => copiarSIP.textContent = "Copiar texto", 1200);
-  });
-}
+// ============================================
+// CAMBIO DE DOMICILIO
+// ============================================
 
-//-----------------------------------------------------//
-/* -------- GENERAR TEXTO - CAMBIO DOMICILIO -------- */
-//-----------------------------------------------------//
+function inicializarCambioDomicilio() {
+  const botonGenerar = document.getElementById("generarBtn_cambio");
+  const botonCopiar = document.getElementById("copiarBtn_cambio");
+  const selectVelocidad = document.getElementById("velocidad_cambio");
 
-const genCambio = document.getElementById("generarBtn_cambio");
-if (genCambio) {
-  genCambio.addEventListener("click", () => {
+  if (!botonGenerar) return;
 
-    const tipo = document.getElementById("tipoCambio").value;
-    const contacto = document.getElementById("contacto_cambio").value || "No indicado";
-    const ubicacion = document.getElementById("ubicacion_cambio").value || "No aplica";
-    const chat = document.getElementById("chat_cambio").value || "No indicado";
-    const direccionActual = document.getElementById("direccion_actual").value || "No indicado";
-    const direccionNueva = document.getElementById("direccion_nueva").value || "No indicado";
-    const catastro = document.getElementById("catastro_nuevo").value || "No indicado";
-    let velocidad = document.getElementById("velocidad_cambio").value;
+  // Mostrar campo "otra velocidad"
+  if (selectVelocidad) {
+    selectVelocidad.addEventListener("change", () => {
+      toggleElemento("velocidad_otro_container_cambio", selectVelocidad.value === "otro");
+    });
+  }
 
+  botonGenerar.addEventListener("click", () => {
+    const tipo = obtenerValor("tipoCambio_cambio");
+    const contacto = obtenerValor("contacto_cambio", "No indicado");
+    const ubicacion = obtenerValor("ubicacion_cambio", "No aplica");
+    const chat = obtenerValor("chat_cambio", "No indicado");
+    const direccionActual = obtenerValor("direccion_actual_cambio", "No indicado");
+    const direccionNueva = obtenerValor("direccion_nueva_cambio", "No indicado");
+    const catastro = obtenerValor("catastro_nuevo_cambio", "No indicado");
+    
+    let velocidad = obtenerValor("velocidad_cambio");
     if (velocidad === "otro") {
-      velocidad = document.getElementById("velocidad_otro").value || "No indicado";
-}
+      velocidad = obtenerValor("velocidad_otro_cambio", "No indicado");
+    }
 
-
-    const texto =
-`Cambio de domicilio
+    const texto = `Cambio de domicilio
 Tipo: ${tipo}
 Contacto: ${contacto}
 Ubicación/Coordenadas: ${ubicacion}
 Chat: ${chat}
-
 Dirección actual: ${direccionActual}
 Dirección nueva: ${direccionNueva}
 Nuevo catastro: ${catastro}
-Velocidad: ${velocidad}
-`;
+Velocidad: ${velocidad}`;
 
     document.getElementById("resultado_cambio").textContent = texto;
-    document.getElementById("copiarBtn_cambio").disabled = false;
+    botonCopiar.disabled = false;
   });
+
+  if (botonCopiar) {
+    botonCopiar.addEventListener("click", () => {
+      copiarAlPortapapeles("resultado_cambio", botonCopiar);
+    });
+  }
 }
 
-/* -------- COPIAR TEXTO - CAMBIO DOMICILIO -------- */
-const copiarCambio = document.getElementById("copiarBtn_cambio");
-if (copiarCambio) {
-  copiarCambio.addEventListener("click", () => {
-    const txt = document.getElementById("resultado_cambio").textContent;
-    navigator.clipboard.writeText(txt);
-    copiarCambio.textContent = "¡Copiado!";
-    setTimeout(() => copiarCambio.textContent = "Copiar texto", 1200);
-  });
-}
-
-/* -------- SELECTOR VELOCIDAD (CAMBIO DOMICILIO) -------- */
-const velSelect = document.getElementById("velocidad_cambio");
-if (velSelect) {
-  velSelect.addEventListener("change", () => {
-    const cont = document.getElementById("velocidad_otro_container");
-    cont.style.display = velSelect.value === "otro" ? "block" : "none";
-  });
-}
-
-
-// -----------------------------
+// ============================================
 // CAMBIO DE TECNOLOGÍA
-// -----------------------------
-const genCambioTec = document.getElementById("generarBtn_cambioTec");
-if (genCambioTec) {
-  genCambioTec.addEventListener("click", () => {
+// ============================================
 
-  // VALIDACIÓN: Plano de acometida debe ser Bot o Mail
-  const plano = document.getElementById("planoAcometida").value;
+function inicializarCambioTecnologia() {
+  const botonGenerar = document.getElementById("generarBtn_cambioTec");
+  const botonCopiar = document.getElementById("copiarBtn_cambioTec");
+  const selectCosto = document.getElementById("costoInstalacion_cambioTec");
+  const selectRedModificada = document.getElementById("modRedInterna_cambioTec");
 
-  if (plano === "No") {
-    alert("Debemos enviar el plano de acometida antes de continuar.");
-    return;
+  if (!botonGenerar) return;
+
+  // Mostrar/ocultar campo de trámite
+  if (selectCosto) {
+    selectCosto.addEventListener("change", () => {
+      const mostrar = selectCosto.value === "Bonificado Falla Técnica";
+      toggleElemento("tramiteBox_cambioTec", mostrar);
+      if (!mostrar) {
+        const campoTramite = document.getElementById("tramiteFT_cambioTec");
+        if (campoTramite) campoTramite.value = "";
+      }
+    });
   }
 
-  // Tomar valores según el HTML
-  const servicio = document.getElementById("servicioCambiar").value;
-  const contacto = document.getElementById("contacto").value;
-  const direccion = document.getElementById("direccion").value;
-  const ubicacion = document.getElementById("ubicacion_cambio").value;
-  const catastro = document.getElementById("catastro").value;
-  const costoInstalacion = document.getElementById("costoInstalacion").value;
-  const tramiteFT = document.getElementById("tramiteFT").value;
-  const identificador = document.getElementById("identificador").value;
-  const velocidad = document.getElementById("velocidad").value;
+  // Mostrar advertencia de red modificada
+  if (selectRedModificada) {
+    selectRedModificada.addEventListener("change", () => {
+      toggleElemento("warningRed_cambioTec", selectRedModificada.value === "Si");
+    });
+  }
 
-  const monitorea = document.getElementById("monitoreaCam").value;
-  const redInterna = document.getElementById("redInterna").value;
-  const llegada = document.getElementById("formaLlegada").value;
-  const alarmaProv = document.getElementById("alarma").value;
-  const redModificada = document.getElementById("modRedInterna").value;
+  botonGenerar.addEventListener("click", () => {
+    const planoAcometida = obtenerValor("planoAcometida_cambioTec");
+    if (planoAcometida === "No") {
+      alert("Debemos enviar el plano de acometida antes de continuar.");
+      return;
+    }
 
-  const planoAcometida = plano;
+    const servicio = obtenerValor("servicioCambiar_cambioTec");
+    const contacto = obtenerValor("contacto_cambioTec");
+    const direccion = obtenerValor("direccion_cambioTec");
+    const ubicacion = obtenerValor("ubicacion_cambioTec");
+    const catastro = obtenerValor("catastro_cambioTec");
+    const costoInstalacion = obtenerValor("costoInstalacion_cambioTec");
+    const tramiteFT = obtenerValor("tramiteFT_cambioTec");
+    const identificador = obtenerValor("identificador_cambioTec");
+    const velocidad = obtenerValor("velocidad_cambioTec");
+    const monitorea = obtenerValor("monitoreaCam_cambioTec");
+    const redInterna = obtenerValor("redInterna_cambioTec");
+    const llegada = obtenerValor("formaLlegada_cambioTec");
+    const alarmaProv = obtenerValor("alarma_cambioTec");
+    const redModificada = obtenerValor("modRedInterna_cambioTec");
 
-  // Armado del texto final
-  let texto = `*Cambio de Tecnología*
-
+    let texto = `*Cambio de Tecnología*
 *Servicio a cambiar:* ${servicio}
 *Contacto:* ${contacto}
 *Dirección:* ${direccion}
 *Ubicación/Coordenadas:* ${ubicacion}
 *Catastro:* ${catastro}
-
 *Costo de instalación:* ${costoInstalacion}`;
 
-  if (costoInstalacion === "Bonificado Falla Técnica") {
-    texto += `\n*N° Trámite:* ${tramiteFT}`;
-  }
+    if (costoInstalacion === "Bonificado Falla Técnica") {
+      texto += `\n*N° Trámite:* ${tramiteFT}`;
+    }
 
-  texto += `
-
+    texto += `
 *Identificador:* ${identificador}
 *Velocidad:* ${velocidad}
-
 *Monitorea cámaras:* ${monitorea}
 *Tiene red interna o repetidores:* ${redInterna}
 *Servicio llega de forma:* ${llegada}
 *En caso de alarma avisa al proveedor:* ${alarmaProv}
 *Red interna modificada:* ${redModificada}
-*Plano de acometida:* ${planoAcometida}
-`;
+*Plano de acometida:* ${planoAcometida}`;
+
     document.getElementById("resultado_cambioTec").textContent = texto;
-    document.getElementById("copiarBtn_cambioTec").disabled = false;
+    botonCopiar.disabled = false;
+  });
 
-})
-
-// Mostrar / ocultar campo TRÁMITE según costo instalación
-document.getElementById("costoInstalacion").addEventListener("change", function () {
-  const tramiteBox = document.getElementById("tramiteBox");
-
-  if (this.value === "Bonificado Falla Técnica") {
-    tramiteBox.style.display = "block";
-  } else {
-    tramiteBox.style.display = "none";
-    document.getElementById("tramiteFT").value = "";
+  if (botonCopiar) {
+    botonCopiar.addEventListener("click", () => {
+      copiarAlPortapapeles("resultado_cambioTec", botonCopiar);
+    });
   }
-});
-
-// Mostrar advertencia si red interna modificada = SI
-document.getElementById("modRedInterna").addEventListener("change", function () {
-  document.getElementById("warningRed").style.display =
-    this.value === "Si" ? "block" : "none";
-});
-
-// Botón copiar texto
-document.getElementById("copiarBtn_cambioTec").addEventListener("click", function () {
-  const texto = document.getElementById("resultado_cambioTec").textContent;
-  navigator.clipboard.writeText(texto);
-  this.textContent = "¡Copiado!";
-  setTimeout(() => this.textContent = "Copiar texto", 1200);
-});
-
 }
 
+// ============================================
+// ALTA DE SERVICIO
+// ============================================
 
+function inicializarAltaServicio() {
+  const botonGenerar = document.getElementById("generarBtn_alta");
+  const botonCopiar = document.getElementById("copiarBtn_alta");
+  const selectServicio = document.getElementById("servicioAlta_alta");
+  const selectRedModificada = document.getElementById("modRedInterna_alta");
 
-// -----------------------------
-// Alta servicio
-// -----------------------------
+  if (!botonGenerar) return;
 
-const genaltaserv = document.getElementById("generarBtn_altaServicio");
-if (genaltaserv) {
-  genaltaserv.addEventListener("click", () => {
-
-  // VALIDACIÓN: Plano de acometida debe ser Bot o Mail
-  const plano = document.getElementById("planoAcometida_alta").value;
-
-  if (plano === "No") {
-    alert("Debemos enviar el plano de acometida antes de continuar.");
-    return;
+  // Mostrar advertencia Zapala
+  if (selectServicio) {
+    selectServicio.addEventListener("change", () => {
+      toggleElemento("warningZapala_alta", selectServicio.value === "Combo 200MB + C.Play");
+    });
   }
 
-  // Tomar valores según el HTML
-  const servicio = document.getElementById("servicioAlta").value;
-  const cliente = document.getElementById("clienteDni").value
-  const contacto = document.getElementById("contacto_alta").value;
-  const direccion = document.getElementById("direccion_alta").value;
-  const ubicacion = document.getElementById("ubicacion_alta").value;
-  const catastro = document.getElementById("catastro_alta").value;
-  const identificador = document.getElementById("identificador_alta").value;
-  const velocidad = document.getElementById("velocidad_alta").value;
-  const observacion = document.getElementById("observacion_alta").value;
+  // Mostrar advertencia de red modificada
+  if (selectRedModificada) {
+    selectRedModificada.addEventListener("change", () => {
+      toggleElemento("warningRed_alta", selectRedModificada.value === "Si");
+    });
+  }
 
-  const monitorea = document.getElementById("monitoreaCam_alta").value;
-  const redInterna = document.getElementById("redInterna_alta").value;
-  const llegada = document.getElementById("formaLlegada_alta").value;
-  const alarmaProv = document.getElementById("alarma_alta").value;
-  const redModificada = document.getElementById("modRedInterna_alta").value;
+  botonGenerar.addEventListener("click", () => {
+    const planoAcometida = obtenerValor("planoAcometida_alta");
+    if (planoAcometida === "No") {
+      alert("Debemos enviar el plano de acometida antes de continuar.");
+      return;
+    }
 
-  const planoAcometida = plano;
+    const servicio = obtenerValor("servicioAlta_alta");
+    const cliente = obtenerValor("clienteDni_alta");
+    const contacto = obtenerValor("contacto_alta");
+    const direccion = obtenerValor("direccion_alta");
+    const ubicacion = obtenerValor("ubicacion_alta");
+    const catastro = obtenerValor("catastro_alta");
+    const identificador = obtenerValor("identificador_alta");
+    const velocidad = obtenerValor("velocidad_alta");
+    const observacion = obtenerValor("observacion_alta");
+    const monitorea = obtenerValor("monitoreaCam_alta");
+    const redInterna = obtenerValor("redInterna_alta");
+    const llegada = obtenerValor("formaLlegada_alta");
+    const alarmaProv = obtenerValor("alarma_alta");
+    const redModificada = obtenerValor("modRedInterna_alta");
 
-  // Armado del texto final
-  let texto = `*Cambio de Tecnología*
-
-*Servicio a cambiar:* ${servicio}
+    const texto = `*Alta de Servicio*
+*Servicio solicitado:* ${servicio}
 *Cliente/DNI:* ${cliente}
 *Contacto:* ${contacto}
 *Dirección:* ${direccion}
 *Ubicación/Coordenadas:* ${ubicacion}
 *Catastro:* ${catastro}
-
 *Identificador:* ${identificador}
 *Velocidad:* ${velocidad}
 *Observación:* ${observacion}
-
 *Monitorea cámaras:* ${monitorea}
 *Tiene red interna o repetidores:* ${redInterna}
 *Servicio llega de forma:* ${llegada}
 *En caso de alarma avisa al proveedor:* ${alarmaProv}
 *Red interna modificada:* ${redModificada}
-*Plano de acometida:* ${planoAcometida}
-`;
-    document.getElementById("resultado_altaServicio").textContent = texto;
-    document.getElementById("copiarBtn_altaServicio").disabled = false;
+*Plano de acometida:* ${planoAcometida}`;
 
-})
+    document.getElementById("resultado_alta").textContent = texto;
+    botonCopiar.disabled = false;
+  });
 
-// Mostrar advertencia si red interna modificada = SI
-document.getElementById("modRedInterna_alta").addEventListener("change", function () {
-  document.getElementById("warningRed_alta").style.display =
-    this.value === "Si" ? "block" : "none";
-});
-
-// Mostrar advertencia si Combo200 Zapala = SI
-document.getElementById("servicioAlta").addEventListener("change", function () {
-  document.getElementById("warningZapala").style.display =
-    this.value === "Combo 200MB + C.Play" ? "block" : "none";
-});
-
-// Botón copiar texto
-document.getElementById("copiarBtn_altaServicio").addEventListener("click", function () {
-  const texto = document.getElementById("resultado_altaServicio").textContent;
-  navigator.clipboard.writeText(texto);
-  this.textContent = "¡Copiado!";
-  setTimeout(() => this.textContent = "Copiar texto", 1200);
-});
+  if (botonCopiar) {
+    botonCopiar.addEventListener("click", () => {
+      copiarAlPortapapeles("resultado_alta", botonCopiar);
+    });
+  }
 }
-

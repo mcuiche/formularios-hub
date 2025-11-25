@@ -7,45 +7,44 @@
   <link rel="stylesheet" href="style.css">
   <script defer src="script.js"></script>
 </head>
-
 <body>
   <div class="container">
     <button id="toggleTheme" class="theme-btn">🌙 / ☀️</button>
-    <h2>Cambio de Domicilio</h2>
-
+    <h2>🏠 Cambio de Domicilio</h2>
+    
     <!-- Tipo de cambio -->
-    <label for="tipoCambio">Tipo:</label>
-    <select id="tipoCambio">
+    <label for="tipoCambio_cambio">Tipo:</label>
+    <select id="tipoCambio_cambio">
       <option value="Cambio de domicilio Multiple FTTH">Cambio de domicilio Multiple FTTH</option>
       <option value="Cambio de domicilio FTTH Solo Internet">Cambio de domicilio FTTH Solo Internet</option>
       <option value="Cambio de domicilio ADSL">Cambio de domicilio ADSL</option>
       <option value="Cambio de domicilio Wireless">Cambio de domicilio Wireless</option>
     </select>
-
+    
     <!-- Contacto -->
     <label for="contacto_cambio">Contacto:</label>
     <input id="contacto_cambio" type="text" placeholder="Ej: 2944xxxxxx - Nombre">
-
+    
     <!-- Ubicación -->
     <label for="ubicacion_cambio">Ubicación / Coordenadas:</label>
     <input id="ubicacion_cambio" type="text" placeholder="Solo usar si no hay dirección clara">
-
+    
     <!-- Chatbot -->
     <label for="chat_cambio">Chat:</label>
     <input id="chat_cambio" type="text" placeholder="Link del chatbot">
-
+    
     <!-- Dirección actual -->
-    <label for="direccion_actual">Dirección actual:</label>
-    <input id="direccion_actual" type="text" placeholder="Dirección de donde está el servicio">
-
+    <label for="direccion_actual_cambio">Dirección actual:</label>
+    <input id="direccion_actual_cambio" type="text" placeholder="Dirección de donde está el servicio">
+    
     <!-- Dirección nueva -->
-    <label for="direccion_nueva">Dirección nueva:</label>
-    <input id="direccion_nueva" type="text" placeholder="Dirección nueva del servicio">
-
+    <label for="direccion_nueva_cambio">Dirección nueva:</label>
+    <input id="direccion_nueva_cambio" type="text" placeholder="Dirección nueva del servicio">
+    
     <!-- Catastro nuevo -->
-    <label for="catastro_nuevo">Catastro nuevo:</label>
-    <input id="catastro_nuevo" type="text" placeholder="15-20-063-7439-0000">
-
+    <label for="catastro_nuevo_cambio">Catastro nuevo:</label>
+    <input id="catastro_nuevo_cambio" type="text" placeholder="15-20-063-7439-0000">
+    
     <!-- Velocidad -->
     <label for="velocidad_cambio">Velocidad:</label>
     <select id="velocidad_cambio">
@@ -60,17 +59,18 @@
       <option value="12 MB">12 MB</option>
       <option value="otro">Otro</option>
     </select>
-
-<div id="velocidad_otro_container" style="display:none; margin-top:5px;">
-  <input id="velocidad_otro" type="text" placeholder="Especificar velocidad">
-</div>
-
+    
+    <div id="velocidad_otro_container_cambio" style="display:none; margin-top:5px;">
+      <input id="velocidad_otro_cambio" type="text" placeholder="Especificar velocidad">
+    </div>
+    
     <div class="buttons">
       <button type="button" id="generarBtn_cambio">Generar texto</button>
       <button type="button" id="copiarBtn_cambio" disabled>Copiar texto</button>
       <a href="index.html" class="volver">← Volver al Hub</a>
     </div>
-
+    
+    <h2>Texto generado:</h2>
     <pre id="resultado_cambio" class="resultado"></pre>
   </div>
 </body>

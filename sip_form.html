@@ -7,75 +7,73 @@
   <link rel="stylesheet" href="style.css">
   <script defer src="script.js"></script>
 </head>
-
 <body>
   <button id="toggleTheme" class="theme-btn">🌙 / ☀️</button>
-
   <div class="container">
-    <h1>Reclamo Línea Telefónica SIP</h1>
+    <h1>☎️ Reclamo Línea Telefónica SIP</h1>
     <p>Completá los datos solicitados y generá el texto para ingresar en el sistema.</p>
-
+    
     <!-- DIRECCIÓN -->
-     <div class="direccion-check">
-        <h3>Dirección verificada</h3>
-        <p>Debe corroborarse en el sistema. Si está mal, corregirla.<br>Si este check no está tildado, no se puede generar el texto.</p>
-        
-         <label class="checkbox-group">
-             <input type="checkbox" id="direccionOk">
-              Confirmo que la dirección fue verificada
-         </label>
-        </div>
-
+    <div class="direccion-check">
+      <h3>Dirección verificada</h3>
+      <p>Debe corroborarse en el sistema. Si está mal, corregirla.<br>Si este check no está tildado, no se puede generar el texto.</p>
+      <label class="check-label">
+        <input type="checkbox" id="direccionCheck_sip">
+        Confirmo que la dirección fue verificada
+      </label>
+    </div>
+    
     <!-- UBICACIÓN / COORDENADAS -->
     <label>Ubicación / Coordenadas
-      <textarea id="ubicacion" placeholder="Pegar ubicación de Google Maps (solo lugares remotos/rurales)."></textarea>
+      <input type="text" id="ubicacion_sip" placeholder="Pegar ubicación de Google Maps (solo lugares remotos/rurales).">
     </label>
-
+    
     <!-- CONTACTO -->
     <label>Contacto
-      <input type="text" id="contacto" placeholder="Ej: Juan Pérez 2972-xxxxxx">
+      <input type="text" id="contacto_sip" placeholder="Ej: Juan Pérez 2972-xxxxxx">
     </label>
-
+    
     <!-- COMENTARIO -->
     <label>Comentario
-      <textarea id="comentario" placeholder="Motivo del llamado / tareas realizadas / solución"></textarea>
+      <textarea id="comentario_sip" placeholder="Motivo del llamado / tareas realizadas / solución"></textarea>
     </label>
-
+    
     <!-- REGISTRA EDITOR -->
     <label>Registro Editor:</label>
     <div class="radio-group">
-      <label><input type="radio" name="editor" value="Si"> Si</label>
-      <label><input type="radio" name="editor" value="No"> No</label>
+      <label><input type="radio" name="editor_sip" value="Si"> Si</label>
+      <label><input type="radio" name="editor_sip" value="No"> No</label>
     </div>
-
+    
     <!-- REGISTRO ONT -->
     <label>Registro ONT:</label>
     <div class="radio-group">
-      <label><input type="radio" name="registroOnt" value="Si"> Si</label>
-      <label><input type="radio" name="registroOnt" value="No"> No</label>
+      <label><input type="radio" name="registroOnt_sip" value="Si"> Si</label>
+      <label><input type="radio" name="registroOnt_sip" value="No"> No</label>
     </div>
-
+    
     <!-- USUARIO SIP -->
     <label>Usuario SIP
-      <input type="text" id="usuarioSip" placeholder="Ej: usuario@cotesma.com">
+      <input type="text" id="usuarioSip_sip" placeholder="Ej: usuario@cotesma.com">
     </label>
-
+    
     <!-- POTENCIA ONT -->
     <label>Potencia ONT
-      <input type="text" id="potenciaOnt" placeholder="Ej: -24 dBm">
+      <input type="text" id="potenciaOnt_sip" placeholder="Ej: -24 dBm">
     </label>
-
+    
     <!-- DESCONEXIONES -->
     <label>Desconexiones en 7 días
-      <input type="number" id="desconexiones" placeholder="Ej: 3">
+      <input type="number" id="desconexiones_sip" placeholder="Ej: 3">
     </label>
-
+    
     <div class="buttons">
       <button type="button" id="generarBtn_sip">Generar texto</button>
       <button type="button" id="copiarBtn_sip" disabled>Copiar texto</button>
       <a href="index.html" class="volver">← Volver al Hub</a>
     </div>
-
+    
+    <h2>Texto generado:</h2>
     <pre id="resultado_sip"></pre>
   </div>
 </body>
