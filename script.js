@@ -478,27 +478,27 @@ function inicializarCambioTecnologia() {
     const alarmaProv = obtenerValor("alarma_cambioTec");
     const redModificada = obtenerValor("modRedInterna_cambioTec");
 
-    let texto = `*Cambio de Tecnología*
-*Servicio a cambiar:* ${servicio}
-*Contacto:* ${contacto}
-*Dirección:* ${direccion}
-*Ubicación/Coordenadas:* ${ubicacion}
-*Catastro:* ${catastro}
-*Costo de instalación:* ${costoInstalacion}`;
+    let texto = `Cambio de Tecnología
+Servicio a cambiar: ${servicio}
+Contacto: ${contacto}
+Dirección: ${direccion}
+Ubicación/Coordenadas: ${ubicacion}
+Catastro:* ${catastro}
+Costo de instalación: ${costoInstalacion}`;
 
     if (costoInstalacion === "Bonificado Falla Técnica") {
-      texto += `\n*N° Trámite:* ${tramiteFT}`;
+      texto += `\n*N° Trámite: ${tramiteFT}`;
     }
 
     texto += `
-*Identificador:* ${identificador}
-*Velocidad:* ${velocidad}
-*Monitorea cámaras:* ${monitorea}
-*Tiene red interna o repetidores:* ${redInterna}
-*Servicio llega de forma:* ${llegada}
-*En caso de alarma avisa al proveedor:* ${alarmaProv}
-*Red interna modificada:* ${redModificada}
-*Plano de acometida:* ${planoAcometida}`;
+Identificador: ${identificador}
+Velocidad: ${velocidad}
+Monitorea cámaras: ${monitorea}
+Tiene red interna o repetidores: ${redInterna}
+Servicio llega de forma: ${llegada}
+En caso de alarma avisa al proveedor: ${alarmaProv}
+Red interna modificada: ${redModificada}
+Plano de acometida: ${planoAcometida}`;
 
     document.getElementById("resultado_cambioTec").textContent = texto;
     botonCopiar.disabled = false;
@@ -559,22 +559,22 @@ function inicializarAltaServicio() {
     const alarmaProv = obtenerValor("alarma_alta");
     const redModificada = obtenerValor("modRedInterna_alta");
 
-    const texto = `*Alta de Servicio*
-*Servicio solicitado:* ${servicio}
-*Cliente/DNI:* ${cliente}
-*Contacto:* ${contacto}
-*Dirección:* ${direccion}
-*Ubicación/Coordenadas:* ${ubicacion}
-*Catastro:* ${catastro}
-*Identificador:* ${identificador}
-*Velocidad:* ${velocidad}
-*Observación:* ${observacion}
-*Monitorea cámaras:* ${monitorea}
-*Tiene red interna o repetidores:* ${redInterna}
-*Servicio llega de forma:* ${llegada}
-*En caso de alarma avisa al proveedor:* ${alarmaProv}
-*Red interna modificada:* ${redModificada}
-*Plano de acometida:* ${planoAcometida}`;
+    const texto = `Alta de Servicio
+Servicio solicitado: ${servicio}
+Cliente/DNI: ${cliente}
+Contacto: ${contacto}
+Dirección: ${direccion}
+Ubicación/Coordenadas: ${ubicacion}
+Catastro: ${catastro}
+Identificador: ${identificador}
+Velocidad: ${velocidad}
+Observación: ${observacion}
+Monitorea cámaras: ${monitorea}
+Tiene red interna o repetidores: ${redInterna}
+Servicio llega de forma: ${llegada}
+En caso de alarma avisa al proveedor: ${alarmaProv}
+Red interna modificada: ${redModificada}
+Plano de acometida: ${planoAcometida}`;
 
     document.getElementById("resultado_alta").textContent = texto;
     botonCopiar.disabled = false;
@@ -585,4 +585,5 @@ function inicializarAltaServicio() {
       copiarAlPortapapeles("resultado_alta", botonCopiar);
     });
   }
+
 }
